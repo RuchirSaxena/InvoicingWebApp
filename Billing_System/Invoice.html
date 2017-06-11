@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+        .borderbuttom {
+            border-bottom: solid 1px #000000;
+        }
+
+        .borderall {
+            border-top: solid 1px #000000;
+            border-bottom: solid 1px #000000;
+            border-right: solid 1px #000000;
+            border-left: solid 1px #000000;
+        }
+
+        .borderright {
+            border-right: solid 1px #000000;
+        }
+
+        .borderleft {
+            border-left: solid 1px #000000;
+        }
+         .borderTop {
+            border-top: solid 1px #000000;
+        }
+          .borderBottom {
+            border-bottom: solid 1px #000000;
+        }
+          .borderBottomRemove {
+            border-bottom: solid 0px #ffffff;
+        }
+
+
+
+        .borderall {
+            border-top: solid 1px #000000;
+            border-bottom: solid 1px #000000;
+            border-right: solid 1px #000000;
+            border-left: solid 1px #000000;
+        }
+
+        .borderver {
+            border-right: solid 1px #000000;
+            border-left: solid 1px #000000;
+        }
+
+        .Companyname {
+            font-weight: bold;
+            font-size: 50px;
+        }
+        .Headers{
+            font-size:x-large;
+            font-weight:900;
+        }
+        .PartyInfo{
+            font-size:large;
+            font-weight:700;
+            height:30px;
+        }
+        .ProductInfo{
+            font-size:large;
+            font-weight:900;
+        }
+    </style>
+</head>
+<body>
+    <table style="width:100%; font-family:Arial;font-size:13px; font-weight:normal;" cellspacing="0" cellpadding="2" border="0">
+        <tr>
+            <td align="left" style="width:20%;vertical-align:top;font-weight:900"><b>TIN # 09159202122</b></td>
+            <td align="center" style="width:60%;">
+                <table align="center" style="width:100%;font-family:Arial;font-size:13px; font-weight:normal;" cellspacing="0" cellpadding="2">
+                    <tr>
+                        <td class="Headers" align="center">ॐ</td>
+                    </tr>
+                    <tr>
+                        <td class="Headers" align="center"><b><u>TAX INVOICE /SALES INVOICE</u></b></td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="Companyname">R.KAY.STEELS</td>
+                    </tr>
+                    <tr>
+                        <td class="Headers" align="center"><b>MAJHOLA DELHI ROAD, MORADABAD-244001</b></td>
+                    </tr>
+                    <tr>
+                        <td class="Headers" align="center"><b>Ph.(0591) 6456070</b></td>
+                    </tr>
+                </table>
+            </td>
+            <td align="right" style="width:20%;">@Logo</td>
+
+        </tr>
+        <tr>
+            <td colspan="3" class="borderbuttom PartyInfo"><b>M/S : <u>@PARTY NAME</u></b></td>
+        </tr>
+
+        <tr>
+            <td colspan="3" class="borderbuttom PartyInfo"><b>ADDRESS : @Address</b></td>
+
+        </tr>
+        <tr>
+            <td colspan="2" width="50%"  class="borderbuttom PartyInfo"><b>INVOICE NO : @InvoiceNO</b></td>
+            <td colspan="1"  width="50%" align="right" class="borderbuttom PartyInfo"><b>DATE : @Date</b></td>
+        </tr>
+        <tr>
+            <td colspan="3" class="borderbuttom PartyInfo"><b>TIN OF PURCHASER : @Tinno</b></td>
+
+        </tr>
+        <tr>
+            <td colspan="3" style="height:10px;"></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:13px; font-weight:normal;">
+                    <tr>
+                        <th class="borderleft borderTop borderBottom ProductInfo"  style="height:50px;background-color:#808080;"  align="center" width="10%">S.NO</th>
+                        <th class="borderleft borderTop borderBottom ProductInfo" style="height:50px;background-color:#808080;" align="center" width="25%">Description Of Goods</th>
+                        <th class="borderleft borderTop borderBottom ProductInfo" style="height:50px;background-color:#808080;" align="center" width="20%">Qty/Weight</th>
+                        <th class="borderleft borderTop borderBottom ProductInfo" style="height:50px;background-color:#808080;" align="center" width="10%">Type</th>
+                        <th class="borderleft borderTop borderBottom ProductInfo" style="height:50px;background-color:#808080;" align="center" width="15%">Rate</th>
+                        <th class="borderleft borderTop borderBottom ProductInfo borderright" style="height:50px;background-color:#808080;" align="center" width="20%">Value of Goods</th>
+                    </tr>
+                    @TableData
+                    <tr class="borderBottomRemove">
+                        <td class="borderleft" style="height:40px;" align="center" width="10%"></td>
+                        <td class="borderleft" style="height:40px;" align="center" width="25%"></td>
+                        <td class="borderleft" style="height:40px;" align="center" width="20%"></td>
+                        <td class="borderleft" style="height:40px;" align="center" width="10%"></td>
+                        <td class="borderleft" style="height:40px;" align="center" width="15%"></td>
+                        <td class="borderleft borderright" style="height:40px;" align="center" width="20%"></td>
+                    </tr>
+                    <tr class="borderBottomRemove">
+                        <td class="borderleft" style="height:40px;" align="center" width="10%"></td>
+                        <td class="borderleft" style="height:40px;" align="center" width="25%"></td>
+                        <td class="borderleft" style="height:40px;" align="center" width="20%"></td>
+                        <td class="borderleft" style="height:40px;" align="center" width="10%"></td>
+                        <td class="borderleft" style="height:40px;" align="center" width="15%"></td>
+                        <td class="borderleft  borderright" style="height:40px;" align="center" width="20%"></td>
+                    </tr>
+                    <tr>
+                        <td class="borderleft borderBottom" style="height:40px;" align="center" width="10%"></td>
+                        <td class="borderleft borderBottom" style="height:40px;" align="center" width="25%"></td>
+                        <td class="borderleft borderBottom" style="height:40px;" align="center" width="20%"></td>
+                        <td class="borderleft borderBottom" style="height:40px;" align="center" width="10%"></td>
+                        <td class="borderleft borderBottom" style="height:40px;" align="center" width="15%"></td>
+                        <td class="borderleft borderBottom borderright" style="height:40px;" align="center" width="20%"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" align="right">
+                <table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:13px; font-weight:normal;">
+                    <tr>
+                        <td width="50%"></td>
+                        <td width="30%" align="right" class="PartyInfo">PACKING COST : </td>
+                        <td width="20%" align="right" class="PartyInfo borderright borderBottom borderleft borderTop">@PackingCost </td>
+                    </tr>
+                    <tr>
+                        <td width="50%"></td>
+                        <td width="30%" align="right" class="PartyInfo">TOTAL : </td>
+                        <td width="20%" align="right" class="PartyInfo borderright borderBottom borderleft">@Total </td>
+                    </tr>
+                    <tr>
+                        <td width="50%"></td>
+                        <td width="30%" align="right" class="PartyInfo">VAT (5%) : </td>
+                        <td width="20%" align="right" class="PartyInfo borderright borderBottom borderleft">@Vat</td>
+                    </tr>
+                    <tr>
+                        <td width="50%"></td>
+                        <td width="30%" align="right" class="PartyInfo">GRAND TOTAL : </td>
+                        <td width="20%" align="right" class="PartyInfo borderright borderBottom borderleft">@GradTotal</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-family:Arial;font-size:15px; font-weight:normal;">
+                    <tr>
+                        <td style="height:25px"></td>
+                    </tr>
+                    <tr>
+                        <td class="borderBottom" style="font-family:Arial;font-size:16px;font-weight:700;margin-bottom:10px;">Grand Total In Words Rs. @TInWords</td>
+                    </tr>
+                    <tr>
+                        <td style="height:30px"></td>
+                    </tr>
+                    <tr>
+                        <td style="font-family:Arial;font-size:13px; font-weight:300;margin-top:5px;"><b><u>TERMS AND CONDITIONS:</u></b></td>
+                    </tr>
+                    <tr>
+                        <td style="height:5px"></td>
+                    </tr>
+                    <tr>
+                        <td>1.Goods dispactched are on customer risk.</td>
+                    </tr>
+                    <tr>
+                        <td>2.Any dispute regarding this invoice should be brought to our notice in writing within 7 days of presentation.</td>
+                    </tr>
+                    <tr>
+                        <td>3.Goods once supplied will not be changed or taken back.</td>
+                    </tr>
+                    <tr>
+                        <td>4.Interest @15% per annum will be charged after 15 days of presentation.</td>
+                    </tr>
+                    <tr>
+                        <td>5.Our responsibilities ceases when the delivery mentioned in this invoice has effected to the carriers.</td>
+                    </tr>
+                    <tr>
+                        <td>6.Subject to Moradabad Jurisdiction.</td>
+                    </tr>
+                    <tr>
+                        <td>7.Values have been rounded of to nearest rupee.</td>
+                    </tr>
+                    <tr>
+                        <td>8.All terms Certificate to Export must be issued in our favour with one month.Non compliance the term in Time Trade Tax and interest will be charged extra.</td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+        <tr>
+            
+            <td style="text-align:right;" colspan="3">
+                <table width="100%" style="font-family:Arial;font-size:13px; font-weight:normal;">
+                    <tr>
+                        <td class="PartyInfo">For R.KAY.STEELS</td>
+                    </tr>
+                    <tr>
+                        <td style="height:40px"></td>
+                    </tr>
+                    <tr>
+                        <td class="PartyInfo">PARTNER</td>
+                    </tr>
+                </table>
+            </td>
+          
+        </tr>
+    </table>
+</body>
+</html>
