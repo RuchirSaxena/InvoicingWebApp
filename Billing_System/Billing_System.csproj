@@ -89,6 +89,14 @@
     <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
     <Content Include="bin\roslyn\vbc.exe" />
     <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="DoToList.txt" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Invoice.aspx" />
     <Content Include="Invoice.html" />
     <Content Include="Logo.PNG" />
     <Content Include="packages.config" />
@@ -96,6 +104,23 @@
     <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
     <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="ProjectResources\app.js" />
+    <Content Include="ProjectResources\Controllers\invoiceCtrl.js" />
+    <Content Include="ProjectResources\Controllers\partyCtrl.js" />
+    <Content Include="ProjectResources\Factory\partyFactory.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <None Include="Scripts\jquery-1.9.0.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.9.0.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -118,6 +143,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.aspx.cs">
+      <DependentUpon>Invoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Invoice.aspx.designer.cs">
+      <DependentUpon>Invoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL.cs" />
     <Compile Include="Models\BAL.cs" />

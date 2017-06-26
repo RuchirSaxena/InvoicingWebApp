@@ -33,7 +33,9 @@ namespace Billing_System.Models
     public class Party
     {
         public string PartyName { get; set; }
+        public string PartyNickName { get; set; }
         public string PartyAddress { get; set; }
+
         public string PartyTinNo { get; set; }
     }
 

@@ -1,0 +1,13 @@
+﻿Functionality
+=====================
+
+1.Create a Invoice page =>Done
+2.Create boostrap template for Invoice page =>Done
+3.SetUp Angular for Invoice Page =>Done
+4.Perform Add Party functionality and save data to DB
+5.Bind party to party DropDownlist
+6.Add products temprarely to table
+7.Give delete functionality of product inside table 
+8.Add the Invoice details to DB
+9.Add validations accordingly 
+10.Test application
