@@ -19,10 +19,10 @@
         function getData() { }
 
         function saveData(partyDetails) {
-            $http.post('Invoice.aspx/SavePartyDetails', partyDetails )
-                    .success(function (data, status, headers, config) {
+            //$http.post('Invoice.aspx/SavePartyDetails', partyDetails )
+            //        .success(function (data, status, headers, config) {
 
-                    });
+            //        });
             //$http({
             //    method: 'Get',
             //    url: 'Invoice.aspx/SavePartyDetails'
@@ -30,6 +30,21 @@
             //}).then(function (response) {
             //    return response.data;
             //});
+
+            $http({
+                url: "Invoice.aspx/SavePartyDetails",
+                dataType: 'json',
+                method: 'POST',
+                data: partyDetails,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).success(function (response) {
+                $scope.value = response;
+            })
+          .error(function (error) {
+              alert(error);
+          });
         }
     }
 })();

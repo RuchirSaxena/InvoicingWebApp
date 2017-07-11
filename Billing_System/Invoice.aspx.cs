@@ -13,13 +13,15 @@ namespace Billing_System
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            short s = 400;
+            int[,] intarry = { { 7, 9, 0 }, { 8, 7, 9 } };
 
         }
 
         [WebMethod]
-        public static string SavePartyDetails(string PartyName,string PartyNickName ,string PartyTinNo,string PartyAddress)
+        public static string SavePartyDetails(Party obj)
         {
-
+            
 
 
             return "";
