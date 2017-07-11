@@ -17,7 +17,7 @@ namespace Billing_System
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            GetInvoiceDetails("007");
+            GetInvoiceDetails("008");
         }
 
         private static void DownloadAsPdf(MemoryStream msPdf, string fileName)
@@ -75,6 +75,7 @@ namespace Billing_System
             mainhtml = mainhtml.Replace("@Date",objInvDetail.DateOfSell);
             mainhtml = mainhtml.Replace("@Tinno",objPartyDetail.PartyTinNo);
             mainhtml = mainhtml.Replace("@Logo", "<img src='" + Server.MapPath(@"~/Logo.PNG") + "' width='150' height='100' />");
+            mainhtml = mainhtml.Replace("@Om", "<img src='" + Server.MapPath(@"~/Content/Om.png") + "' width='20'/>");
             StringBuilder sbProducts = new StringBuilder();
             for(int i = 0; i < objInvDetail.Product.Count; i++)
             {
