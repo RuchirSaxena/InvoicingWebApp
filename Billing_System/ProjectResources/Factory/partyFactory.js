@@ -31,20 +31,40 @@
             //    return response.data;
             //});
 
-            $http({
-                url: "Invoice.aspx/SavePartyDetails",
-                dataType: 'json',
-                method: 'POST',
-                data: partyDetails,
-                headers: {
-                    "Content-Type": "application/json"
+            //$http({
+            //    url: "Invoice.aspx/SavePartyDetails",
+            //    dataType: 'json',
+            //   // contentType: 'application/json; charset=utf-8',
+            //    method: 'POST',
+            //  //  JSON.stringify({ haha: $(this).val(),tuan: "hahaha" }),
+            //    data: {Party:partyDetails},
+            //    headers: {
+            //        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            //    }
+            //}).then(function(data){
+            //    alert("done");
+            //})
+            //$http.post("Invoice.aspx", { Party: partyDetails }, {
+            //    transformRequest: angular.identity,
+            //    headers: { 'Content-Type': undefined }
+            //}).then(function (data) {
+            //    //success
+            //}, function (error) {
+            //    //error
+            //});
+
+            //Final Method
+            $.ajax({
+                type: "POST",
+                url: "/Invoice.aspx/SavePartyDetails",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ 'party': partyDetails }), // Check this call.
+                success: function (data) {
+                    debugger;
                 }
-            }).success(function (response) {
-                $scope.value = response;
-            })
-          .error(function (error) {
-              alert(error);
-          });
+            });
+         
         }
     }
 })();

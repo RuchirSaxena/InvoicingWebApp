@@ -65,7 +65,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="Party">Select Party</label>
                     <div class="col-md-4">
-                        <select id="Party" name="Party" class="form-control" required="">
+                        <select id="Party" name="Party" ng-model="PartyId" class="form-control">
                             <option value="1">Option one</option>
                             <option value="2">Option two</option>
                         </select>
@@ -84,9 +84,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Date</label>
                     <div class="col-md-4">
-                        <input id="DateOfBill" name="DateOfBill" type="date" class="form-control input-md" required="" />
-
-                    </div>
+                        <input id="DateOfBill" name="DateOfBill" type="date"    ng-model="DateOfInvoice" class="form-control input-md" />
+                      
                 </div>
 
                 <legend>Add Products</legend>
@@ -96,13 +95,13 @@
                     <div class="col-md-4">
                         <div class="radio">
                             <label for="radios-0">
-                                <input type="radio" name="radios" id="radios-0" value="1" checked="checked" />
+                                <input type="radio" name="type" ng-model="ProductType" id="radios-0" value="Weight" checked="checked" />
                                 Weight
                             </label>
                         </div>
                         <div class="radio">
                             <label for="radios-1">
-                                <input type="radio" name="radios" id="radios-1" value="2" />
+                                <input type="radio" name="type" ng-model="ProductType" id="radios-1" value="Pieces" />
                                 Pieces
                             </label>
                         </div>
@@ -113,7 +112,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Weight/Pieces</label>
                     <div class="col-md-4">
-                        <input id="Weight" name="textinput" type="text" placeholder="Enter Weight/Pieces" class="form-control input-md" required="" />
+                        <input id="Weight" name="textinput" type="text" ng-model="Qty" placeholder="Enter Weight/Pieces" class="form-control input-md" />
 
                     </div>
                 </div>
@@ -122,7 +121,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="Amount">Amount</label>
                     <div class="col-md-4">
-                        <input id="Amount" name="Amount" type="text" placeholder="Enter Amount" class="form-control input-md" required="" />
+                        <input id="Amount" name="Amount" type="text" ng-model="Amount" placeholder="Enter Amount" class="form-control input-md" />
 
                     </div>
                 </div>
@@ -130,49 +129,36 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="singlebutton">Add Product</label>
                     <div class="col-md-4">
-                        <button id="AddProduct" name="singlebutton" class="btn btn-warning">Add Product</button>
+                        <button id="AddProduct" name="singlebutton" ng-click="invoice.SaveProduct(ProductType,Qty,Amount)" class="btn btn-warning">Add Product</button>
                     </div>
                 </div>
                 <div>
-                    <button class="btn btn-success pull-right">Generate Invoice</button>
+                    <button class="btn btn-success pull-right" ng-click="invoice.SaveInvoice(PartyId,DateOfInvoice)">Generate Invoice</button>
                 </div>
 
             </fieldset>
         </form>
         <table class="table table-striped table-bordered table-hover table-condensed">
             <tr>
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>Age</td>
+                <td>Type</td>
+                <td>Quantity</td>
+                <td>Amount</td>
             </tr>
-            <tr class="danger">
-                <td>Ruchir</td>
-                <td>Saxena</td>
-                <td>30</td>
+
+            <tr class="info" ng-repeat="product in invoice.products">
+                <td>{{product.Type}}</td>
+                <td>{{product.Quantity}}</td>
+                <td>{{product.Amount}}</td>
             </tr>
-            <tr class="info">
-                <td>Suresh</td>
-                <td>Kumar</td>
-                <td>28</td>
-            </tr>
-            <tr class="primary">
-                <td>Rajesh</td>
-                <td>Sharma</td>
-                <td>44</td>
-            </tr>
-            <tr class="success">
-                <td>Amit</td>
-                <td>Trivedi</td>
-                <td>33</td>
-            </tr>
+
         </table>
-        
+
 
         <div class="well well-sm">
             <footer>@Copywrite R.kay Steels</footer>
         </div>
     </div>
-     <!--Modal Popup-->
+    <!--Modal Popup-->
     <div id="myModal" class="modal fade" ng-controller="partyCtrl as party">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -187,7 +173,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Party Name</label>
                                 <div class="col-md-4">
-                                    <input id="PartyName" name="textinput" type="text" placeholder="Enter Party Name" ng-model="party.partyDetails.PartyName" class="form-control-modal input-md" required="" />
+                                    <input id="PartyName" name="textinput" type="text" placeholder="Enter Party Name" ng-model="party.partyDetails.PartyName" class="form-control-modal input-md" />
                                 </div>
                             </div>
 
@@ -195,7 +181,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="PartyNickName">Party NickName</label>
                                 <div class="col-md-4">
-                                    <input id="PartyNickName" name="PartyNickName" type="text" placeholder="Enter party nickname" ng-model="party.partyDetails.PartyNickName" class="form-control-modal input-md" required="" />
+                                    <input id="PartyNickName" name="PartyNickName" type="text" placeholder="Enter party nickname" ng-model="party.partyDetails.PartyNickName" class="form-control-modal input-md" />
                                 </div>
                             </div>
 
@@ -212,7 +198,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="PartyAddress">Address</label>
                                 <div class="col-md-4">
-                                    <textarea class="form-control"   id ="PartyAddress" name="PartyAddress" style="margin: 0px -110.672px 0px 0px; width: 271px; height: 99px;" ng-model="party.partyDetails.PartyAddress" required=""></textarea>
+                                    <textarea class="form-control" id="PartyAddress" name="PartyAddress" style="margin: 0px -110.672px 0px 0px; width: 271px; height: 99px;" ng-model="party.partyDetails.PartyAddress"></textarea>
                                 </div>
                             </div>
 
@@ -229,11 +215,11 @@
 
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
                 </div>
-                
+
             </div>
         </div>
     </div>
-   
+
 
 
     <!--External Resources-->
