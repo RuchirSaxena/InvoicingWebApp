@@ -21,13 +21,16 @@
         .borderleft {
             border-left: solid 1px #000000;
         }
-         .borderTop {
+
+        .borderTop {
             border-top: solid 1px #000000;
         }
-          .borderBottom {
+
+        .borderBottom {
             border-bottom: solid 1px #000000;
         }
-          .borderBottomRemove {
+
+        .borderBottomRemove {
             border-bottom: solid 0px #ffffff;
         }
 
@@ -49,25 +52,28 @@
             font-weight: bold;
             font-size: 50px;
         }
-        .Headers{
-            font-size:x-large;
-            font-weight:900;
+
+        .Headers {
+            font-size: x-large;
+            font-weight: 900;
         }
-        .PartyInfo{
-            font-size:large;
-            font-weight:700;
-            height:30px;
+
+        .PartyInfo {
+            font-size: large;
+            font-weight: 700;
+            height: 30px;
         }
-        .ProductInfo{
-            font-size:large;
-            font-weight:900;
+
+        .ProductInfo {
+            font-size: large;
+            font-weight: 900;
         }
     </style>
 </head>
 <body>
     <table style="width:100%; font-family:Arial;font-size:13px; font-weight:normal;" cellspacing="0" cellpadding="2" border="0">
         <tr>
-            <td align="left" style="width:20%;vertical-align:top;font-weight:900"><b>TIN # 09159202122</b></td>
+            <td align="left" style="width:20%;vertical-align:top;font-weight:900"><b>GSTIN # 09AAJFR0383C1ZA</b></td>
             <td align="center" style="width:60%;">
                 <table align="center" style="width:100%;font-family:Arial;font-size:13px; font-weight:normal;" cellspacing="0" cellpadding="2">
                     <tr>
@@ -93,7 +99,8 @@
 
         </tr>
         <tr>
-            <td colspan="3" class="borderbuttom PartyInfo"><b>M/S : <u>@PARTY NAME</u></b></td>
+            <td colspan="2" class="borderbuttom PartyInfo"><b>M/S : <u>@PARTY NAME</u></b></td>
+            <td colspan="1" width="50%" align="right" class="borderbuttom PartyInfo"><b>DATE : @Date</b></td>
         </tr>
 
         <tr>
@@ -101,11 +108,11 @@
 
         </tr>
         <tr>
-            <td colspan="2" width="50%"  class="borderbuttom PartyInfo"><b>INVOICE NO : @InvoiceNO</b></td>
-            <td colspan="1"  width="50%" align="right" class="borderbuttom PartyInfo"><b>DATE : @Date</b></td>
+            <td colspan="3" width="50%" class="borderbuttom PartyInfo"><b>INVOICE NO : @InvoiceNO</b></td>
+            <!--<td colspan="1"  width="50%" align="right" class="borderbuttom PartyInfo"><b>DATE : @Date</b></td>-->
         </tr>
         <tr>
-            <td colspan="3" class="borderbuttom PartyInfo"><b>TIN OF PURCHASER : @Tinno</b></td>
+            <td colspan="3" class="borderbuttom PartyInfo"><b>GSTIN OF PURCHASER : @Tinno</b></td>
 
         </tr>
         <tr>
@@ -115,7 +122,7 @@
             <td colspan="3">
                 <table border="0" width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:13px; font-weight:normal;">
                     <tr>
-                        <th class="borderleft borderTop borderBottom ProductInfo"  style="height:50px;background-color:#808080;"  align="center" width="10%">S.NO</th>
+                        <th class="borderleft borderTop borderBottom ProductInfo" style="height:50px;background-color:#808080;" align="center" width="10%">S.NO</th>
                         <th class="borderleft borderTop borderBottom ProductInfo" style="height:50px;background-color:#808080;" align="center" width="25%">Description Of Goods</th>
                         <th class="borderleft borderTop borderBottom ProductInfo" style="height:50px;background-color:#808080;" align="center" width="20%">Qty/Weight</th>
                         <th class="borderleft borderTop borderBottom ProductInfo" style="height:50px;background-color:#808080;" align="center" width="10%">Type</th>
@@ -123,22 +130,6 @@
                         <th class="borderleft borderTop borderBottom ProductInfo borderright" style="height:50px;background-color:#808080;" align="center" width="20%">Value of Goods</th>
                     </tr>
                     @TableData
-                    <tr class="borderBottomRemove">
-                        <td class="borderleft" style="height:40px;" align="center" width="10%"></td>
-                        <td class="borderleft" style="height:40px;" align="center" width="25%"></td>
-                        <td class="borderleft" style="height:40px;" align="center" width="20%"></td>
-                        <td class="borderleft" style="height:40px;" align="center" width="10%"></td>
-                        <td class="borderleft" style="height:40px;" align="center" width="15%"></td>
-                        <td class="borderleft borderright" style="height:40px;" align="center" width="20%"></td>
-                    </tr>
-                    <tr class="borderBottomRemove">
-                        <td class="borderleft" style="height:40px;" align="center" width="10%"></td>
-                        <td class="borderleft" style="height:40px;" align="center" width="25%"></td>
-                        <td class="borderleft" style="height:40px;" align="center" width="20%"></td>
-                        <td class="borderleft" style="height:40px;" align="center" width="10%"></td>
-                        <td class="borderleft" style="height:40px;" align="center" width="15%"></td>
-                        <td class="borderleft  borderright" style="height:40px;" align="center" width="20%"></td>
-                    </tr>
                     <tr>
                         <td class="borderleft borderBottom" style="height:40px;" align="center" width="10%"></td>
                         <td class="borderleft borderBottom" style="height:40px;" align="center" width="25%"></td>
@@ -147,6 +138,8 @@
                         <td class="borderleft borderBottom" style="height:40px;" align="center" width="15%"></td>
                         <td class="borderleft borderBottom borderright" style="height:40px;" align="center" width="20%"></td>
                     </tr>
+
+
                 </table>
             </td>
         </tr>
@@ -165,8 +158,18 @@
                     </tr>
                     <tr>
                         <td width="50%"></td>
-                        <td width="30%" align="right" class="PartyInfo">VAT (5%) : </td>
+                        <td width="30%" align="right" class="PartyInfo">CGST (6%) : </td>
                         <td width="20%" align="right" class="PartyInfo borderright borderBottom borderleft">@Vat</td>
+                    </tr>
+                    <tr>
+                        <td width="50%"></td>
+                        <td width="30%" align="right" class="PartyInfo">SGST (6%) : </td>
+                        <td width="20%" align="right" class="PartyInfo borderright borderBottom borderleft">@SGST</td>
+                    </tr>
+                    <tr>
+                        <td width="50%"></td>
+                        <td width="30%" align="right" class="PartyInfo">IGST (0%) : </td>
+                        <td width="20%" align="right" class="PartyInfo borderright borderBottom borderleft">0.00</td>
                     </tr>
                     <tr>
                         <td width="50%"></td>
@@ -223,7 +226,7 @@
             </td>
         </tr>
         <tr>
-            
+
             <td style="text-align:right;" colspan="3">
                 <table width="100%" style="font-family:Arial;font-size:13px; font-weight:normal;">
                     <tr>
@@ -237,7 +240,7 @@
                     </tr>
                 </table>
             </td>
-          
+
         </tr>
     </table>
 </body>

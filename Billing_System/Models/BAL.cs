@@ -42,6 +42,8 @@ namespace Billing_System.Models
     public class AmountTaxCalculation
     {
         public string Vat { get; set; }
+
+        public string IGST { get; set; }
         public string Total { get; set; }
         public string GrandTotal { get; set; }
         public string GTotalInWords { get; set; }
