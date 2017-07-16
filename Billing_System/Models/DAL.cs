@@ -11,15 +11,7 @@ namespace Billing_System.Models
 {
     public class DAL
     {
-        public string VisitorName { get; set; }
-        public string Address { get; set; }
-        public string IssuedCardNumber { get; set; }
-        public string MobileNo { get; set; }
-        public string PurposeOfVisit { get; set; }
-        public string WhomToMeetName { get; set; }
-        public int WhomToMeetId { get; set; }
-        public DateTime DateTimeIn { get; set; }
-        public DateTime? DateTimeOut { get; set; }
+      
 
         public string PicturePath { get; set; }
         public byte[] VisitorImage { get; set; }
@@ -121,43 +113,7 @@ namespace Billing_System.Models
             return ds;
         }
 
-        public int saveVisitorDetails()
-        {
-            con = new SqlConnection(connString);
-            SqlCommand cmd = new SqlCommand();
-            int response = 0;
-            try
-            {
-                cmd = new SqlCommand("Proc_GateEntryDetails_I", con);
-
-                cmd.Parameters.Add(new SqlParameter("@VisitorName", VisitorName));
-                cmd.Parameters.Add(new SqlParameter("@Address", Address));
-                cmd.Parameters.Add(new SqlParameter("@IssuedCardNo", IssuedCardNumber));
-                cmd.Parameters.Add(new SqlParameter("@VsitorImage", VisitorImage));
-                cmd.Parameters.Add(new SqlParameter("@MobileNo", MobileNo));
-                cmd.Parameters.Add(new SqlParameter("@PurposeOfVisit", PurposeOfVisit));
-                cmd.Parameters.Add(new SqlParameter("@WhomeToMeetName", WhomToMeetName));
-                cmd.Parameters.Add(new SqlParameter("@WhomToMeetId", WhomToMeetId));
-                cmd.Parameters.Add(new SqlParameter("@DateTimeIn", DateTimeIn));
-                cmd.Parameters.Add(new SqlParameter("@DateTimeOut", DateTimeOut));
-                cmd.Parameters.Add(new SqlParameter("@LoginId", LoginId));
-
-                cmd.CommandType = CommandType.StoredProcedure;
-                Connect();
-                response = cmd.ExecuteNonQuery();
-                Disconnect();
-            }
-            catch (Exception x)
-            {
-
-            }
-            finally
-            {
-                cmd.Dispose();
-                Disconnect();
-            }
-            return response;
-        }
+      
 
         public DataSet getActiveVistingVisitor()
         {
@@ -360,7 +316,161 @@ namespace Billing_System.Models
                 //Disconnect();
 
             }
+
             return ds.Tables[0].Rows[0];
+        }
+
+        public DataTable getAllPartyDetail(int PartyId)
+        {
+            con = new SqlConnection(connString);
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            try
+            {
+                cmd = new SqlCommand("GetPartyDetail", con);
+                cmd.Parameters.Add(new SqlParameter("@PartyId", PartyId));
+                cmd.CommandType = CommandType.StoredProcedure;
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+
+            }
+            catch (Exception x)
+            {
+                throw new Exception("Error Occured");
+            }
+            finally
+            {
+                cmd.Dispose();
+                //Disconnect();
+
+            }
+
+            return ds.Tables[0];
+        }
+
+       
+
+        public string LastestInoiceNoGeneration()
+        {
+            string LatestInoiceNo = string.Empty;
+            string LastInvoiceNo =getLastInvoice();
+            int TempInvoice = Convert.ToInt32(LastInvoiceNo)+1;
+            if(TempInvoice >= 0 && TempInvoice < 10)
+            {
+                LatestInoiceNo = "00" + TempInvoice.ToString();
+            }
+            else if(TempInvoice >= 10 && TempInvoice <= 99)
+            {
+                LatestInoiceNo = "0" + TempInvoice.ToString();
+            }
+            else
+            {
+                LatestInoiceNo = TempInvoice.ToString();
+            }
+
+            return LatestInoiceNo;
+        }
+        public string getLastInvoice()
+        {
+            con = new SqlConnection(connString);
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            try
+            {
+                cmd = new SqlCommand("procGetLastInvoice", con);
+              
+                cmd.CommandType = CommandType.StoredProcedure;
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+
+            }
+            catch (Exception x)
+            {
+                throw new Exception("Error Occured");
+            }
+            finally
+            {
+                cmd.Dispose();
+                //Disconnect();
+
+            }
+
+            return ds.Tables[0].Rows[0]["IvoiceNo"].ToString();
+        }
+
+        public int SavePartyDetails(Party obj)
+        {
+            int response = 0;
+            con = new SqlConnection(connString);
+            SqlCommand cmd = new SqlCommand();
+           
+            try
+            {
+                cmd = new SqlCommand("SavePartyDetails", con);
+                cmd.Parameters.Add(new SqlParameter("@PartyNickName", obj.PartyNickName));
+                cmd.Parameters.Add(new SqlParameter("@PartyName", obj.PartyName));
+                cmd.Parameters.Add(new SqlParameter("@PartyTinNO", obj.PartyTinNo));
+                cmd.Parameters.Add(new SqlParameter("@PartyAddress", obj.PartyAddress));
+                cmd.CommandType = CommandType.StoredProcedure;
+                Connect();
+                response= cmd.ExecuteNonQuery();
+                Disconnect();
+               
+
+            }
+            catch (Exception x)
+            {
+                throw new Exception("Error Occured");
+            }
+            finally
+            {
+                cmd.Dispose();
+                Disconnect();
+
+            }
+
+            return response;
+        }
+
+        public int SaveInvoicwDetails(FinalInvoiceData obj)
+        {
+            int response = 0;
+            con = new SqlConnection(connString);
+            SqlCommand cmd = new SqlCommand();
+
+            try
+            {
+                cmd = new SqlCommand("SaveInvoiceDetails", con);
+                cmd.Parameters.Add(new SqlParameter("@PartyId", obj.PartyId));
+                cmd.Parameters.Add(new SqlParameter("@DateOfSell", obj.DateOfSell));
+                cmd.Parameters.Add(new SqlParameter("@InvoiceNo", obj.InvoiceNo));
+                cmd.Parameters.Add(new SqlParameter("@ProductName", obj.ProductName));
+                cmd.Parameters.Add(new SqlParameter("@PackagingCost", obj.PackagingCost));
+                cmd.Parameters.Add(new SqlParameter("@Qty", obj.Qty));
+                cmd.Parameters.Add(new SqlParameter("@Rate", obj.Rate));
+                cmd.Parameters.Add(new SqlParameter("@Amount", obj.Amount));
+                cmd.Parameters.Add(new SqlParameter("@IsPiece", obj.IsPiece));
+                cmd.CommandType = CommandType.StoredProcedure;
+                Connect();
+                response = cmd.ExecuteNonQuery();
+                Disconnect();
+
+
+            }
+            catch (Exception x)
+            {
+                throw new Exception("Error Occured");
+            }
+            finally
+            {
+                cmd.Dispose();
+                Disconnect();
+
+            }
+
+            return response;
         }
 
     }

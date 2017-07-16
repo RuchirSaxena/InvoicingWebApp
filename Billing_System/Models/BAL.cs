@@ -59,6 +59,22 @@ namespace Billing_System.Models
     }
 
 
+    public class FinalInvoiceData
+    {
+
+        public int PartyId { get; set; }
+        public DateTime DateOfSell { get; set; }
+        public string InvoiceNo { get; set; }
+        public string ProductName { get; set; }
+        public double PackagingCost { get; set; }
+        public double Qty { get; set; }
+        public double Rate { get; set; }
+        public double Amount { get; set; }
+        public bool IsPiece { get; set; }
+
+    }
+
+
 
    
 }

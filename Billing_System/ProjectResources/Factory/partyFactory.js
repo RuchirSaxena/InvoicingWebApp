@@ -59,9 +59,14 @@
                 url: "/Invoice.aspx/SavePartyDetails",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify({ 'party': partyDetails }), // Check this call.
+                data: JSON.stringify({ 'party': partyDetails }), 
                 success: function (data) {
-                    debugger;
+                    if (data.d === "1") {
+                        alert("Party Details inserted sucessfully");
+                        location.reload();  
+                    } else {
+                        alert("Error Occured");
+                    }
                 }
             });
          

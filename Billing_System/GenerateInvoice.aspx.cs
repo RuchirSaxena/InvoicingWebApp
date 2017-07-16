@@ -17,7 +17,12 @@ namespace Billing_System
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            GetInvoiceDetails("008");
+            if (Session["InvoiceNo"]!=null)
+            {
+               // GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));//009
+                GetInvoiceDetails("009");
+            }
+          
         }
 
         private static void DownloadAsPdf(MemoryStream msPdf, string fileName)

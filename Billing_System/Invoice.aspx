@@ -65,9 +65,16 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="Party">Select Party</label>
                     <div class="col-md-4">
-                        <select id="Party" name="Party" ng-model="PartyId" class="form-control">
-                            <option value="1">Option one</option>
-                            <option value="2">Option two</option>
+
+                      <!--   <select ng-model="d" ng-change="getEmployees(d)"
+                         ng-options="dept.DepartmentId as dept.DepartmentName for dept in deptData"></select><br />-->
+
+
+                        <select id="Party" name="Party" ng-model="PartyId"  class="form-control" ng-change=""
+                            ng-options="party.PartyName for party in invoice.partyData track by party.PartyId"
+                             
+                            >
+                           
                         </select>
                     </div>
                 </div>
@@ -84,7 +91,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Date</label>
                     <div class="col-md-4">
-                        <input id="DateOfBill" name="DateOfBill" type="date"    ng-model="DateOfInvoice" class="form-control input-md" />
+                        <input id="DateOfBill" name="DateOfBill" type="text"  ng-model="DateOfInvoice" class="form-control input-md" />
                       
                 </div>
 
@@ -231,10 +238,15 @@
     <script src="ProjectResources/Controllers/invoiceCtrl.js"></script>
     <script src="ProjectResources/Controllers/partyCtrl.js"></script>
     <script src="ProjectResources/Factory/partyFactory.js"></script>
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#DateOfBill").datepicker();
             $('#AddParty').on('click', function () {
+
                 $("#myModal").modal('show');
             });
         });
