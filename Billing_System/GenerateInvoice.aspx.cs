@@ -87,9 +87,11 @@ namespace Billing_System
                 sbProducts.Append("<tr class='borderBottomRemove'>");
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+(i+1)+".</td>");
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+ objInvDetail.Product[i].ProductName +"</td>");
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>7323.99.20</td>");
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].Qty + "</td>");
                 string  Type= objInvDetail.Product[i].ProductType == "per kg" ? "Piece" : "Kgs";
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + Type + "</td>");
+                //sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + Type + "</td>");
+                
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+(objInvDetail.Product[i].Rate.ToString() + objInvDetail.Product[i].ProductType.ToString())+"</td>");
                 sbProducts.Append("<td class='borderleft PartyInfo borderright' style='height:40px;' align='center'>" + objInvDetail.Product[i].AmountDisplay+"</td>");
                 sbProducts.Append("</tr>");                                                                                                                 
