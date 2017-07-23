@@ -7,22 +7,23 @@
 
     invoiceCtrl.$inject = ['$scope'];
 
-    
-
     function invoiceCtrl($scope) {
         var vm = this;
         vm.partyData = getPartyData();
+        vm.PartyNickName = "";
         vm.products = [];
         vm.invoiceDate = "";
         vm.SaveProduct = function (type, qty, amount) {
-            if (type !== undefined && type !== "" || qty !== undefined && qty !== "" || amount !== undefined && amount !== "") {
+            if ((type !== undefined && type !== "") && (qty !== undefined && qty !== "") && (amount !== undefined && amount !== "")) {
                 var tempObj = {
                     Type: type,
                     Quantity: qty,
                     Amount: amount
                 };
                 vm.products.push(tempObj);
-               
+                alert("Product Added");
+                $('#Weight').val(''); 
+                $('#Amount').val('');
             } else {
                 alert("Select Type and Enter Quantity and Amount");
             }
@@ -55,8 +56,7 @@
                 InvoiceDate: invoiceDate,
                 Products: products
             }
-            debugger;
-            $.ajax({
+          $.ajax({
                 type: "POST",
                 url: "/Invoice.aspx/SaveInvoiceData",
                 contentType: "application/json; charset=utf-8",
@@ -66,6 +66,7 @@
                     if (data.d === "1") {
                         alert("Invoice Created Sucessfully!");
                         window.location.href = "GenerateInvoice.aspx";
+                       
                     }
                 }
             });

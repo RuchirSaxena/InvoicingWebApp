@@ -396,8 +396,9 @@ namespace Billing_System.Models
                 //Disconnect();
 
             }
-
+            if(ds.Tables[0].Rows.Count>0)
             return ds.Tables[0].Rows[0]["IvoiceNo"].ToString();
+            return "0";
         }
 
         public int SavePartyDetails(Party obj)
