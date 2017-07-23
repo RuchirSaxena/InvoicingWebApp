@@ -19,10 +19,10 @@ namespace Billing_System
         {
             if (Session["InvoiceNo"]!=null)
             {
-               // GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));//009
+               GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));//009
                
             }
-            GetInvoiceDetails("009");
+           // GetInvoiceDetails("009");
         }
 
         private static void DownloadAsPdf(MemoryStream msPdf, string fileName)
@@ -88,8 +88,9 @@ namespace Billing_System
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+(i+1)+".</td>");
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+ objInvDetail.Product[i].ProductName +"</td>");
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>7323.99.20</td>");
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].Qty + "</td>");
-                string  Type= objInvDetail.Product[i].ProductType == "per kg" ? "Piece" : "Kgs";
+                string Type = objInvDetail.Product[i].ProductType == "per kg" ? "Pieces" : "Kgs";
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].Qty+" " +Type+ "</td>");
+               
                 //sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + Type + "</td>");
                 
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+(objInvDetail.Product[i].Rate.ToString() + objInvDetail.Product[i].ProductType.ToString())+"</td>");
