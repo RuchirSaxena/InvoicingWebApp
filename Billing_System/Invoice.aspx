@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-
+               
                 <!-- Button -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="singlebutton">Add Party</label>
@@ -129,7 +129,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Weight/Pieces</label>
                     <div class="col-md-4">
-                        <input id="Weight" name="textinput" type="text" ng-model="Qty" placeholder="Enter Weight/Pieces" class="form-control input-md" />
+                        <input id="Weight" name="textinput" type="text" onkeypress="return isNumberKey(event)"  ng-model="Qty" placeholder="Enter Weight/Pieces" class="form-control input-md" />
 
                     </div>
                 </div>
@@ -138,7 +138,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="Amount">Amount</label>
                     <div class="col-md-4">
-                        <input id="Amount" name="Amount" type="text" ng-model="Amount" placeholder="Enter Amount" class="form-control input-md" />
+                        <input id="Amount" name="Amount" type="text" onkeypress="return isNumberKey(event)"  ng-model="Amount" placeholder="Enter Amount" class="form-control input-md" />
 
                     </div>
                 </div>
@@ -259,6 +259,14 @@
                 $("#myModal").modal('show');
             });
         });
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+              && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
     </script>
 </body>
 </html>

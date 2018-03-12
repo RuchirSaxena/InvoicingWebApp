@@ -110,9 +110,12 @@ namespace Billing_System
                 sbProducts.Append("<tr class='borderBottomRemove'>");
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+(i+1)+".</td>");
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+ objInvDetail.Product[i].ProductName +"</td>");
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].Qty + "</td>");
-                string  Type= objInvDetail.Product[i].ProductType == "per kg" ? "Piece" : "Kgs";
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + Type + "</td>");
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>7323.99.20</td>");
+                string Type = objInvDetail.Product[i].ProductType == "per kg" ? "Pieces" : "Kgs";
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].Qty+" " +Type+ "</td>");
+               
+                //sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + Type + "</td>");
+                
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+(objInvDetail.Product[i].Rate.ToString() + objInvDetail.Product[i].ProductType.ToString())+"</td>");
                 sbProducts.Append("<td class='borderleft PartyInfo borderright' style='height:40px;' align='center'>" + objInvDetail.Product[i].AmountDisplay+"</td>");
                 sbProducts.Append("</tr>");                                                                                                                 
@@ -122,6 +125,8 @@ namespace Billing_System
             mainhtml = mainhtml.Replace("@PackingCost", "0.00");
             mainhtml = mainhtml.Replace("@Total", objAmounts.Total);
             mainhtml = mainhtml.Replace("@Vat", objAmounts.Vat);
+           
+            mainhtml = mainhtml.Replace("@SGST", objAmounts.IGST);
             mainhtml = mainhtml.Replace("@GradTotal", objAmounts.GrandTotal);
             mainhtml = mainhtml.Replace("@TInWords", objAmounts.GTotalInWords);
             string downloadedFileName = objInvDetail.IvoiceNo + "_" + objPartyDetail.PartyName;
@@ -167,7 +172,8 @@ namespace Billing_System
             }
             objAmountTaxCalculation.Total = CalcuateTotal(objInvoiceDetail).ToString("n2");
             objAmountTaxCalculation.Vat = CalculateVat(Convert.ToDouble(objAmountTaxCalculation.Total)).ToString("n2");
-            objAmountTaxCalculation.GrandTotal = (Convert.ToDouble(objAmountTaxCalculation.Total) + Convert.ToDouble(objAmountTaxCalculation.Vat)).ToString("n2");
+            objAmountTaxCalculation.IGST = CalculateIGST(Convert.ToDouble(objAmountTaxCalculation.Total)).ToString("n2");
+            objAmountTaxCalculation.GrandTotal = (Convert.ToDouble(objAmountTaxCalculation.Total) + Convert.ToDouble(objAmountTaxCalculation.Vat)+ Convert.ToDouble(objAmountTaxCalculation.IGST)).ToString("n2");
             objAmountTaxCalculation.GTotalInWords = NumbersToWords(Convert.ToInt32(Convert.ToDouble(objAmountTaxCalculation.GrandTotal)));
             DataRow dr = objDal.getPartyDetail(objInvoiceDetail.PartyId);
             objParty.PartyName = dr["PartyName"].ToString();
@@ -177,11 +183,29 @@ namespace Billing_System
             GenerateInvoicePDF(objParty, objInvoiceDetail,objAmountTaxCalculation);
         }
 
+        /// <summary>
+        /// Its now used for CGST
+        /// </summary>
+        /// <param name="TotalAmount"></param>
+        /// <returns></returns>
         public double CalculateVat(double TotalAmount)
         {
-            double Vat = 0.0;
-            Vat = (TotalAmount * 5) / 100;
-            return Math.Round(Vat, 0, MidpointRounding.AwayFromZero);
+            double CGST = 0.0;
+            CGST = (TotalAmount * 6) / 100;
+            return Math.Round(CGST, 0, MidpointRounding.AwayFromZero);
+        }
+
+        /// <summary>
+        /// Its now used for IGST @ 6%
+        /// </summary>
+        /// <param name="TotalAmount"></param>
+        /// <returns></returns>
+        public double CalculateIGST(double TotalAmount)
+        {
+
+            double IGST = 0.0;
+            IGST = (TotalAmount * 6) / 100;
+            return Math.Round(IGST, 0, MidpointRounding.AwayFromZero);
         }
         public double CalcuateTotal(InvoiceDetail objInvoice)
         {
