@@ -66,16 +66,26 @@
                     <label class="col-md-4 control-label" for="Party">Select Party</label>
                     <div class="col-md-4">
 
-                      <!--   <select ng-model="d" ng-change="getEmployees(d)"
+                        <!--   <select ng-model="d" ng-change="getEmployees(d)"
                          ng-options="dept.DepartmentId as dept.DepartmentName for dept in deptData"></select><br />-->
 
 
-                        <select id="Party" name="Party" ng-model="PartyId"  class="form-control" ng-change=""
-                            ng-options="party.PartyName for party in invoice.partyData track by party.PartyId"
-                             
-                            >
-                           
+                        <select id="Party" name="Party" ng-model="PartyId" class="form-control" ng-change=""
+                            ng-options="party.PartyName for party in invoice.partyData track by party.PartyId">
                         </select>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div>
+                        <label class="col-md-4 control-label" for="Party">Select Bill Type</label>
+                        <div class="col-md-4">
+                            <select class="form-control" ng-model="BillType">
+                                <option value="1">S.S.Utensils(12% | 7323)</option>
+                                <option value="2">S.S.Scrap(18% | 7204)</option>
+                                <option value="3">S.S.Patta(18% | 7220)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -91,10 +101,10 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Date</label>
                     <div class="col-md-4">
-                        <input id="DateOfBill" name="DateOfBill" type="text"  ng-model="DateOfInvoice" class="form-control input-md" />
-                      
-                </div>
+                        <input id="DateOfBill" name="DateOfBill" type="text" ng-model="DateOfInvoice" class="form-control input-md" />
 
+                    </div>
+                </div>
                 <legend>Add Products</legend>
                 <!-- Multiple Radios -->
                 <div class="form-group">
@@ -136,13 +146,12 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="singlebutton">Add Product</label>
                     <div class="col-md-4">
-                        <button id="AddProduct" name="singlebutton" ng-click="invoice.SaveProduct(ProductType,Qty,Amount)" class="btn btn-warning">Add Product</button>
+                        <button id="AddProduct" name="singlebutton" ng-click="invoice.SaveProduct(ProductType,Qty,Amount,BillType)" class="btn btn-warning">Add Product</button>
                     </div>
                 </div>
                 <div>
                     <button class="btn btn-success pull-right" ng-click="invoice.SaveInvoice(PartyId,DateOfInvoice)">Generate Invoice</button>
                 </div>
-
             </fieldset>
         </form>
         <table class="table table-striped table-bordered table-hover table-condensed">
@@ -238,9 +247,9 @@
     <script src="ProjectResources/Controllers/invoiceCtrl.js"></script>
     <script src="ProjectResources/Controllers/partyCtrl.js"></script>
     <script src="ProjectResources/Factory/partyFactory.js"></script>
-     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

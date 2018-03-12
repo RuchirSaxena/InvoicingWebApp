@@ -13,13 +13,15 @@
         var vm = this;
         vm.partyData = getPartyData();
         vm.products = [];
+
         vm.invoiceDate = "";
-        vm.SaveProduct = function (type, qty, amount) {
+        vm.SaveProduct = function (type, qty, amount, billType) {
             if (type !== undefined && type !== "" || qty !== undefined && qty !== "" || amount !== undefined && amount !== "") {
                 var tempObj = {
                     Type: type,
                     Quantity: qty,
-                    Amount: amount
+                    Amount: amount,
+                    BillType: billType
                 };
                 vm.products.push(tempObj);
                

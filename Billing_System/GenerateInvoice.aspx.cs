@@ -15,12 +15,35 @@ namespace Billing_System
 {
     public partial class GenerateInvoice : System.Web.UI.Page
     {
+       public enum BillType
+        {
+            Utensils12=1,
+            Scrap18 =2 ,
+            Patta18=3
+        }
+        string BType="1";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["InvoiceNo"]!=null)
             {
                // GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));//009
                 GetInvoiceDetails("009");
+            }
+            if (Session["BillType"] != null)
+            {
+                BType= Session["BillType"].ToString();
+                //switch (type)
+                //{
+                //    case "1":
+                //        BillType = 1;
+                //        break;
+                //    case "2":
+                //        break;
+                //    case "3":
+                //        break;
+                //    default:
+                //        break;
+                //}
             }
           
         }

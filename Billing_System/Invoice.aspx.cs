@@ -16,9 +16,6 @@ namespace Billing_System
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            short s = 400;
-            int[,] intarry = { { 7, 9, 0 }, { 8, 7, 9 } };
-
         }
 
         [WebMethod]
@@ -40,6 +37,7 @@ namespace Billing_System
             HttpContext.Current.Session["InvoiceNo"] = InvoiceNo;
             for (int i = 0; i < invoiceData.Products.Count; i++)
             {
+                HttpContext.Current.Session["BillType"] = invoiceData.Products[i].BillType;
                 objInvoiceData.PartyId =Convert.ToInt32( invoiceData.PartyId);
                 objInvoiceData.DateOfSell= Convert.ToDateTime(invoiceData.InvoiceDate);
                 objInvoiceData.InvoiceNo = InvoiceNo;
@@ -87,6 +85,7 @@ namespace Billing_System
             public string Type { get; set; }
             public string Quantity { get; set; }
             public string Amount { get; set; }
+            public string BillType { get; set; }
         }
     }
 }
