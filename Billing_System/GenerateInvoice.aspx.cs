@@ -179,6 +179,7 @@ namespace Billing_System
         /// <returns></returns>
         public double CalculateIGST(double TotalAmount)
         {
+
             double IGST = 0.0;
             IGST = (TotalAmount * 6) / 100;
             return Math.Round(IGST, 0, MidpointRounding.AwayFromZero);
