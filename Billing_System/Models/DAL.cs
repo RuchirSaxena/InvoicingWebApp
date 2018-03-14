@@ -11,8 +11,6 @@ namespace Billing_System.Models
 {
     public class DAL
     {
-      
-
         public string PicturePath { get; set; }
         public byte[] VisitorImage { get; set; }
         public int? LoginId { get; set; }
@@ -402,7 +400,7 @@ namespace Billing_System.Models
             }
             else
             {
-                return "001";
+                return "000";
             }
             
         }

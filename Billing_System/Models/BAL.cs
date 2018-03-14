@@ -41,7 +41,7 @@ namespace Billing_System.Models
 
     public class AmountTaxCalculation
     {
-        public string Vat { get; set; }
+        public string CGST { get; set; }
 
         public string IGST { get; set; }
         public string Total { get; set; }
@@ -76,7 +76,11 @@ namespace Billing_System.Models
 
     }
 
-
-
-   
+    public static class BillType
+    {
+        public  static  int Type { get; set; }
+        public static string Name { get; set; }
+        public static string HSNCode { get; set; }
+        public static Double TaxRate { get; set; }
+    }
 }

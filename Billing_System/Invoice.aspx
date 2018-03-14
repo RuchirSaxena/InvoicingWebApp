@@ -81,9 +81,9 @@
                         <label class="col-md-4 control-label" for="Party">Select Bill Type</label>
                         <div class="col-md-4">
                             <select class="form-control" ng-model="BillType">
-                                <option value="1">S.S.Utensils(12% | 7323)</option>
-                                <option value="2">S.S.Scrap(18% | 7204)</option>
-                                <option value="3">S.S.Patta(18% | 7220)</option>
+                                <option value="0">S.S.Utensils(12% | 7323)</option>
+                                <option value="1">S.S.Scrap(18% | 7204)</option>
+                                <option value="2">S.S.Patta(18% | 7220)</option>
                             </select>
                         </div>
                     </div>

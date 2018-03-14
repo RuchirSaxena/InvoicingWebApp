@@ -15,37 +15,13 @@ namespace Billing_System
 {
     public partial class GenerateInvoice : System.Web.UI.Page
     {
-       public enum BillType
-        {
-            Utensils12=1,
-            Scrap18 =2 ,
-            Patta18=3
-        }
-        string BType="1";
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["InvoiceNo"]!=null)
+            if (Session["InvoiceNo"] != null)
             {
-               // GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));//009
-                GetInvoiceDetails("009");
+                // GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));//009
+                GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));
             }
-            if (Session["BillType"] != null)
-            {
-                BType= Session["BillType"].ToString();
-                //switch (type)
-                //{
-                //    case "1":
-                //        BillType = 1;
-                //        break;
-                //    case "2":
-                //        break;
-                //    case "3":
-                //        break;
-                //    default:
-                //        break;
-                //}
-            }
-          
         }
 
         private static void DownloadAsPdf(MemoryStream msPdf, string fileName)
@@ -87,45 +63,45 @@ namespace Billing_System
         }
         protected void GenerateInvoicePDF(object sender, EventArgs e)
         {
- 
+
         }
 
-        private void GenerateInvoicePDF(Party objPartyDetail, InvoiceDetail objInvDetail,AmountTaxCalculation objAmounts)
+        private void GenerateInvoicePDF(Party objPartyDetail, InvoiceDetail objInvDetail, AmountTaxCalculation objAmounts)
         {
             string strTemplatePath = Server.MapPath(@"~\Invoice.html");
             StringBuilder mainhtml = new StringBuilder();
             string htmlTemp = File.ReadAllText(strTemplatePath);
-
             mainhtml.Append(htmlTemp);
-            mainhtml = mainhtml.Replace("@PARTY NAME",objPartyDetail.PartyName );
-            mainhtml = mainhtml.Replace("@Address",objPartyDetail.PartyAddress );
-            mainhtml = mainhtml.Replace("@InvoiceNO",objInvDetail.IvoiceNo);
-            mainhtml = mainhtml.Replace("@Date",objInvDetail.DateOfSell);
-            mainhtml = mainhtml.Replace("@Tinno",objPartyDetail.PartyTinNo);
+            mainhtml = mainhtml.Replace("@PARTY NAME", objPartyDetail.PartyName);
+            mainhtml = mainhtml.Replace("@Address", objPartyDetail.PartyAddress);
+            mainhtml = mainhtml.Replace("@InvoiceNO", objInvDetail.IvoiceNo);
+            mainhtml = mainhtml.Replace("@Date", objInvDetail.DateOfSell);
+            mainhtml = mainhtml.Replace("@Tinno", objPartyDetail.PartyTinNo);
             mainhtml = mainhtml.Replace("@Logo", "<img src='" + Server.MapPath(@"~/Logo.PNG") + "' width='150' height='100' />");
             mainhtml = mainhtml.Replace("@Om", "<img src='" + Server.MapPath(@"~/Content/Om.png") + "' width='20'/>");
             StringBuilder sbProducts = new StringBuilder();
-            for(int i = 0; i < objInvDetail.Product.Count; i++)
+            for (int i = 0; i < objInvDetail.Product.Count; i++)
             {
                 sbProducts.Append("<tr class='borderBottomRemove'>");
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+(i+1)+".</td>");
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+ objInvDetail.Product[i].ProductName +"</td>");
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>7323.99.20</td>");
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + (i + 1) + ".</td>");
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].ProductName + "</td>");
+                //Add the HSN Code Dynamically here
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+BillType.HSNCode+"</td>");
                 string Type = objInvDetail.Product[i].ProductType == "per kg" ? "Pieces" : "Kgs";
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].Qty+" " +Type+ "</td>");
-               
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].Qty + " " + Type + "</td>");
+
                 //sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + Type + "</td>");
-                
-                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+(objInvDetail.Product[i].Rate.ToString() + objInvDetail.Product[i].ProductType.ToString())+"</td>");
-                sbProducts.Append("<td class='borderleft PartyInfo borderright' style='height:40px;' align='center'>" + objInvDetail.Product[i].AmountDisplay+"</td>");
-                sbProducts.Append("</tr>");                                                                                                                 
+
+                sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + (objInvDetail.Product[i].Rate.ToString() + objInvDetail.Product[i].ProductType.ToString()) + "</td>");
+                sbProducts.Append("<td class='borderleft PartyInfo borderright' style='height:40px;' align='center'>" + objInvDetail.Product[i].AmountDisplay + "</td>");
+                sbProducts.Append("</tr>");
 
             }
             mainhtml = mainhtml.Replace("@TableData", sbProducts.ToString());
             mainhtml = mainhtml.Replace("@PackingCost", "0.00");
             mainhtml = mainhtml.Replace("@Total", objAmounts.Total);
-            mainhtml = mainhtml.Replace("@Vat", objAmounts.Vat);
-           
+            mainhtml = mainhtml.Replace("@CGST", objAmounts.CGST);
+            mainhtml = mainhtml.Replace("@Tax", Convert.ToInt32(BillType.TaxRate).ToString());
             mainhtml = mainhtml.Replace("@SGST", objAmounts.IGST);
             mainhtml = mainhtml.Replace("@GradTotal", objAmounts.GrandTotal);
             mainhtml = mainhtml.Replace("@TInWords", objAmounts.GTotalInWords);
@@ -133,10 +109,10 @@ namespace Billing_System
             MemoryStream ms = ConvertHtmlToPdf(mainhtml.ToString());
             DownloadAsPdf(ms, downloadedFileName);
         }
-        
+
         private void GetInvoiceDetails(string InvoiceNo)
         {
-            
+
             DAL objDal = new DAL();
             InvoiceDetail objInvoiceDetail = new InvoiceDetail();
             AmountTaxCalculation objAmountTaxCalculation = new AmountTaxCalculation();
@@ -147,56 +123,56 @@ namespace Billing_System
             if (dtInvoiceData.Rows.Count > 0)
             {
                 objInvoiceDetail.PartyId = Convert.ToInt32(dtInvoiceData.Rows[0]["PartyId"]);
-                objInvoiceDetail.DateOfSell = Convert.ToDateTime( dtInvoiceData.Rows[0]["DateOfSell"]).ToString("dd/MM/yyyy");
+                objInvoiceDetail.DateOfSell = Convert.ToDateTime(dtInvoiceData.Rows[0]["DateOfSell"]).ToString("dd/MM/yyyy");
                 objInvoiceDetail.IvoiceNo = dtInvoiceData.Rows[0]["IvoiceNo"].ToString();
-                
+
                 for (int i = 0; i < dtInvoiceData.Rows.Count; i++)
                 {
-                   
+
                     liProduct.Add(new Product()
                     {
                         ProductName = dtInvoiceData.Rows[i]["ProductName"].ToString(),
                         Qty = Convert.ToDouble(dtInvoiceData.Rows[i]["Qty"]),
-                        PackagingCost=Convert.ToDouble(dtInvoiceData.Rows[i]["PackagingCost"]),
+                        PackagingCost = Convert.ToDouble(dtInvoiceData.Rows[i]["PackagingCost"]),
                         //Price= Convert.ToDouble(dtInvoiceData.Rows[i]["PackagingCost"]),
-                        Rate =Convert.ToDouble(dtInvoiceData.Rows[i]["Rate"]),
-                        Amount= Convert.ToDouble(dtInvoiceData.Rows[i]["Amount"]),
-                        AmountDisplay= Math.Round(Convert.ToDouble(dtInvoiceData.Rows[i]["Amount"]),0,MidpointRounding.AwayFromZero).ToString("n2"),
+                        Rate = Convert.ToDouble(dtInvoiceData.Rows[i]["Rate"]),
+                        Amount = Convert.ToDouble(dtInvoiceData.Rows[i]["Amount"]),
+                        AmountDisplay = Math.Round(Convert.ToDouble(dtInvoiceData.Rows[i]["Amount"]), 0, MidpointRounding.AwayFromZero).ToString("n2"),
                         IsPice = Convert.ToBoolean(dtInvoiceData.Rows[i]["IsPiece"]),
-                        ProductType= Convert.ToBoolean(dtInvoiceData.Rows[i]["IsPiece"])==true? "/per piece" : "/per kg"
-
+                        ProductType = Convert.ToBoolean(dtInvoiceData.Rows[i]["IsPiece"]) == true ? "/per piece" : "/per kg"
                     });
-
                 }
                 objInvoiceDetail.Product = liProduct;
             }
             objAmountTaxCalculation.Total = CalcuateTotal(objInvoiceDetail).ToString("n2");
-            objAmountTaxCalculation.Vat = CalculateVat(Convert.ToDouble(objAmountTaxCalculation.Total)).ToString("n2");
+            objAmountTaxCalculation.CGST = CalculateCGST(Convert.ToDouble(objAmountTaxCalculation.Total)).ToString("n2");
             objAmountTaxCalculation.IGST = CalculateIGST(Convert.ToDouble(objAmountTaxCalculation.Total)).ToString("n2");
-            objAmountTaxCalculation.GrandTotal = (Convert.ToDouble(objAmountTaxCalculation.Total) + Convert.ToDouble(objAmountTaxCalculation.Vat)+ Convert.ToDouble(objAmountTaxCalculation.IGST)).ToString("n2");
+            objAmountTaxCalculation.GrandTotal = (Convert.ToDouble(objAmountTaxCalculation.Total) + Convert.ToDouble(objAmountTaxCalculation.CGST) + Convert.ToDouble(objAmountTaxCalculation.IGST)).ToString("n2");
             objAmountTaxCalculation.GTotalInWords = NumbersToWords(Convert.ToInt32(Convert.ToDouble(objAmountTaxCalculation.GrandTotal)));
             DataRow dr = objDal.getPartyDetail(objInvoiceDetail.PartyId);
             objParty.PartyName = dr["PartyName"].ToString();
             objParty.PartyTinNo = dr["PartyTinNo"].ToString();
             objParty.PartyAddress = dr["PartyAddress"].ToString();
 
-            GenerateInvoicePDF(objParty, objInvoiceDetail,objAmountTaxCalculation);
+            GenerateInvoicePDF(objParty, objInvoiceDetail, objAmountTaxCalculation);
         }
 
         /// <summary>
-        /// Its now used for CGST
+        ///  CGST Amount Calculation
         /// </summary>
         /// <param name="TotalAmount"></param>
         /// <returns></returns>
-        public double CalculateVat(double TotalAmount)
+        public double CalculateCGST(double TotalAmount)
         {
             double CGST = 0.0;
-            CGST = (TotalAmount * 6) / 100;
+            double CGSTRate = BillType.TaxRate;
+
+            CGST = (TotalAmount * CGSTRate) / 100;
             return Math.Round(CGST, 0, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>
-        /// Its now used for IGST @ 6%
+        /// IGST Amount Calculation
         /// </summary>
         /// <param name="TotalAmount"></param>
         /// <returns></returns>
@@ -204,18 +180,20 @@ namespace Billing_System
         {
 
             double IGST = 0.0;
-            IGST = (TotalAmount * 6) / 100;
+            double IGSTTax = BillType.TaxRate;
+            IGST = (TotalAmount * IGSTTax) / 100;
             return Math.Round(IGST, 0, MidpointRounding.AwayFromZero);
         }
+
         public double CalcuateTotal(InvoiceDetail objInvoice)
         {
             double Total = 0.0;
             List<Product> objProductList = objInvoice.Product;
-            for(int i = 0; i < objProductList.Count; i++)
+            for (int i = 0; i < objProductList.Count; i++)
             {
                 Total += (objProductList[i].Amount + objProductList[i].PackagingCost);
             }
-            return Math.Round(Total, 0, MidpointRounding.AwayFromZero); 
+            return Math.Round(Total, 0, MidpointRounding.AwayFromZero);
 
         }
         public static string NumbersToWords(int inputNumber)

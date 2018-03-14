@@ -22,14 +22,36 @@ namespace Billing_System
         public static string SavePartyDetails(Party party)
         {
             DAL objDal = new DAL();
-           string jsonResponse= objDal.SavePartyDetails(party).ToString();
-
-
+            string jsonResponse = objDal.SavePartyDetails(party).ToString();
             return jsonResponse;
         }
         [WebMethod]
         public static string SaveInvoiceData(InvoiceData invoiceData)
         {
+          
+            int _billType = Convert.ToInt32(invoiceData.Products[0].BillType);
+            if (_billType == 0)
+            {
+                BillType.Type = 1;
+                BillType.Name = "S.S.UTENSILS";
+                BillType.HSNCode = "7323.99.20";
+                BillType.TaxRate = 6.00;
+
+            }else if (_billType == 1)
+            {
+                BillType.Type = 2;
+                BillType.Name = "S.S.SCRAP";
+                BillType.HSNCode = "7204";
+                BillType.TaxRate = 9.00;
+            }
+            else
+            {
+                BillType.Type = 3;
+                BillType.Name = "S.S.PATTA";
+                BillType.HSNCode = "7220";
+                BillType.TaxRate = 9.00;
+            }
+
             string responseData = "0";
             FinalInvoiceData objInvoiceData = new FinalInvoiceData();
             DAL objDal = new DAL();
@@ -38,10 +60,11 @@ namespace Billing_System
             for (int i = 0; i < invoiceData.Products.Count; i++)
             {
                 HttpContext.Current.Session["BillType"] = invoiceData.Products[i].BillType;
-                objInvoiceData.PartyId =Convert.ToInt32( invoiceData.PartyId);
-                objInvoiceData.DateOfSell= Convert.ToDateTime(invoiceData.InvoiceDate);
+                objInvoiceData.PartyId = Convert.ToInt32(invoiceData.PartyId);
+                objInvoiceData.DateOfSell = Convert.ToDateTime(invoiceData.InvoiceDate);
                 objInvoiceData.InvoiceNo = InvoiceNo;
-                objInvoiceData.ProductName = "S.S.UTENSILS";
+                //Adding the different Type of Product Name (ie.S.s Utensils , S.S.Patta,S.S.Scrap)
+                objInvoiceData.ProductName = BillType.Name;
                 objInvoiceData.PackagingCost = 0.0;
                 objInvoiceData.Qty = Convert.ToDouble(invoiceData.Products[i].Quantity);
                 objInvoiceData.Rate = Convert.ToDouble(invoiceData.Products[i].Amount);
@@ -49,7 +72,6 @@ namespace Billing_System
                 objInvoiceData.IsPiece = invoiceData.Products[i].Type == "Weight" ? false : true;
                 responseData = objDal.SaveInvoicwDetails(objInvoiceData).ToString();
             }
-
             return responseData;
         }
 
