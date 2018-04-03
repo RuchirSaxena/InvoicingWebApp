@@ -12,6 +12,7 @@
         vm.partyData = getPartyData();
         vm.PartyNickName = "";
         vm.products = [];
+      //vm.getPartyNickName = getPartyNickName();
 
         vm.invoiceDate = "";
         vm.SaveProduct = function (type, qty, amount, billType) {
@@ -89,5 +90,7 @@
             });
             return partyDetails;
         }
+
+      
     }
 })();

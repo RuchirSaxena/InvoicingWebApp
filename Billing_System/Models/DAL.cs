@@ -478,5 +478,46 @@ namespace Billing_System.Models
             return response;
         }
 
+        public DataSet GetMonthlySalesData(DateTime StartDate, DateTime EndDate)
+        {
+            int response = 0;
+            con = new SqlConnection(connString);
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+
+            try
+            {
+                //new SqlParameter("@DateOfSell", obj.DateOfSell)
+                cmd = new SqlCommand("GetMonthlyData", con);
+
+                //SqlParameter parameter1 = cmd.Parameters.Add("@StartDate",
+                //System.Data.SqlDbType.DateTime);
+                //parameter1.Value = StartDate;
+                cmd.Parameters.Add(new SqlParameter("@StartDate", StartDate));
+
+                //SqlParameter parameter2 = cmd.Parameters.Add("@EndDate",
+                //System.Data.SqlDbType.DateTime);
+                //parameter2.Value = StartDate;
+                cmd.Parameters.Add(new SqlParameter("@EndDate", EndDate));
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+            }
+            catch (Exception x)
+            {
+                throw new Exception("Error Occured");
+            }
+            finally
+            {
+                cmd.Dispose();
+                Disconnect();
+
+            }
+
+            return ds;
+        }
+
     }
 }

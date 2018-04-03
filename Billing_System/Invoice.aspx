@@ -27,17 +27,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/Invoice.aspx">Generate Invoice</a></li>
+                    <li><a href="/Records.aspx">Report</a></li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -65,16 +57,13 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="Party">Select Party</label>
                     <div class="col-md-4">
-
                         <!--   <select ng-model="d" ng-change="getEmployees(d)"
                          ng-options="dept.DepartmentId as dept.DepartmentName for dept in deptData"></select><br />-->
-
-
-                        <select id="Party" name="Party" ng-model="PartyId" class="form-control" ng-change=""
+                        <select id="Party" name="Party" ng-model="PartyId" class="form-control"
                             ng-options="party.PartyName for party in invoice.partyData track by party.PartyId">
                         </select>
                     </div>
-
+                    {{PartyId.PartyNickName}}
                 </div>
                 <div class="form-group">
                     <div>
@@ -88,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-               
+
                 <!-- Button -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="singlebutton">Add Party</label>
@@ -129,7 +118,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Weight/Pieces</label>
                     <div class="col-md-4">
-                        <input id="Weight" name="textinput" type="text" onkeypress="return isNumberKey(event)"  ng-model="Qty" placeholder="Enter Weight/Pieces" class="form-control input-md" />
+                        <input id="Weight" name="textinput" type="text" onkeypress="return isNumberKey(event)" ng-model="Qty" placeholder="Enter Weight/Pieces" class="form-control input-md" />
 
                     </div>
                 </div>
@@ -138,7 +127,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="Amount">Amount</label>
                     <div class="col-md-4">
-                        <input id="Amount" name="Amount" type="text" onkeypress="return isNumberKey(event)"  ng-model="Amount" placeholder="Enter Amount" class="form-control input-md" />
+                        <input id="Amount" name="Amount" type="text" onkeypress="return isNumberKey(event)" ng-model="Amount" placeholder="Enter Amount" class="form-control input-md" />
 
                     </div>
                 </div>
@@ -240,20 +229,24 @@
 
     <!--External Resources-->
     <script src="Scripts/angular.js"></script>
-    <script src="Scripts/jquery-1.9.0.min.js"></script>
+    <script src="Scripts/jquery-1.12.4.js"></script>
     <script src="Scripts/bootstrap.js"></script>
     <!--Project Resources-->
     <script src="ProjectResources/app.js"></script>
     <script src="ProjectResources/Controllers/invoiceCtrl.js"></script>
     <script src="ProjectResources/Controllers/partyCtrl.js"></script>
     <script src="ProjectResources/Factory/partyFactory.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <%--  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--%>
 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <%--  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
+    <script src="Scripts/jquery-ui-1.12.1.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#DateOfBill").datepicker();
+            $("#DateOfBill").datepicker({
+                dateFormat: 'd-m-yy'
+            });
             $('#AddParty').on('click', function () {
 
                 $("#myModal").modal('show');

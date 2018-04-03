@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Billing_System.Models;
 using Newtonsoft.Json;
 using System.Data;
+using System.Globalization;
 
 namespace Billing_System
 {
@@ -28,7 +29,8 @@ namespace Billing_System
         [WebMethod]
         public static string SaveInvoiceData(InvoiceData invoiceData)
         {
-          
+
+            DateTime dt = DateTime.Now;
             int _billType = Convert.ToInt32(invoiceData.Products[0].BillType);
             if (_billType == 0)
             {
@@ -61,6 +63,7 @@ namespace Billing_System
             {
                 HttpContext.Current.Session["BillType"] = invoiceData.Products[i].BillType;
                 objInvoiceData.PartyId = Convert.ToInt32(invoiceData.PartyId);
+                // Convert.ToDateTime(DateTime.ParseExact("YouDateString", "dd-MM-yyyy", CultureInfo.InvariantCulture));
                 objInvoiceData.DateOfSell = Convert.ToDateTime(invoiceData.InvoiceDate);
                 objInvoiceData.InvoiceNo = InvoiceNo;
                 //Adding the different Type of Product Name (ie.S.s Utensils , S.S.Patta,S.S.Scrap)

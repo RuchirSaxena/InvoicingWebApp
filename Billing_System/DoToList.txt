@@ -10,6 +10,9 @@
 7.Give delete functionality of product inside table 
 8.Add the Invoice details to DB
 9.Add validations accordingly =>Done
-10.Test application
-11.S.S.Scrap ->18% ->HSN Code 7204 (Add as new product)
-12.S.S.Patta ->18% ->HSN Code 7220 (Add as new product)
+10.Test application=>In Process
+11.S.S.Scrap ->18% ->HSN Code 7204 (Add as new product) =>Done
+12.S.S.Patta ->18% ->HSN Code 7220 (Add as new product) =>Done
+13.Add GridView showing  below details 
+   S.NO | PartyName |  Amount | CGST | SGST | TotalAmount | BillDate
+
