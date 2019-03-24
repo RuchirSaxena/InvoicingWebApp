@@ -237,16 +237,17 @@
     <script src="ProjectResources/Controllers/partyCtrl.js"></script>
     <script src="ProjectResources/Factory/partyFactory.js"></script>
     <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" />
-    <%--  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--%>
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
- <%--  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
-    <script src="Scripts/jquery-ui-1.12.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#DateOfBill").datepicker({
-                dateFormat: 'd-m-yy'
-            });
+		   $("#DateOfBill").datepicker();
+         //   $("#DateOfBill").datepicker({
+           //     dateFormat: 'd-m-yy'
+           // });
             $('#AddParty').on('click', function () {
 
                 $("#myModal").modal('show');
