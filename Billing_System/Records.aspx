@@ -53,7 +53,7 @@
                         <div class="col-md-4">
                             <label></label>
 
-                            <button class="btn btn-success form-control" ng-click="record.getRecordsData(firstname,Date1 )">Search</button>
+                            <button id="btnGetSearchRecords" class="btn btn-success form-control" ng-click="record.getRecordsData()">Search</button>
                         </div>
                     </div>
                 </div>
@@ -72,6 +72,7 @@
                             <td>CGST</td>
                             <td>SGST</td>
                             <td>Total Amount</td>
+                            
 
                         </tr>
                         <tr class="info" ng-repeat="record in record.recordData">
@@ -85,6 +86,7 @@
                             <td>{{record.CGST}}</td>
                             <td>{{record.SGST}}</td>
                             <td>{{record.TotalAmount}}</td>
+                            <td><input type="button" class="btn btn-danger" value="Delete"  ng-click="deleteInvoice(record.InvoiceNo);" /></td>
                         </tr>
                     </table>
                 </div>
@@ -112,14 +114,8 @@
     <script src="Scripts/jquery-ui-1.12.1.js"></script>
     <script>
         $(document).ready(function () {
-            $("#startDate").datepicker(
-                {
-                    dateFormat: 'd-m-yy'
-                });
-            $("#endDate").datepicker(
-                {
-                    dateFormat: 'd-m-yy'
-                });
+            $("#startDate").datepicker();
+            $("#endDate").datepicker();
             //Export To Excel
             $("#btnExport").click(function (e) {
             
@@ -128,6 +124,7 @@
                 exportToExcel($('#dvData').html());
                 e.preventDefault();
             });
+
 
         });
 
@@ -158,6 +155,8 @@
             link.href = uri + base64(format(template, ctx));
             link.click();
         }
+
+        
     </script>
 </body>
 </html>

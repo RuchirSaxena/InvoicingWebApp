@@ -29,7 +29,7 @@ namespace Billing_System
         [WebMethod]
         public static string SaveInvoiceData(InvoiceData invoiceData)
         {
-
+            bool oldBill = true;
             DateTime dt = DateTime.Now;
             int _billType = Convert.ToInt32(invoiceData.Products[0].BillType);
             if (_billType == 0)
@@ -57,7 +57,12 @@ namespace Billing_System
             string responseData = "0";
             FinalInvoiceData objInvoiceData = new FinalInvoiceData();
             DAL objDal = new DAL();
-            string InvoiceNo = objDal.LastestInoiceNoGeneration();
+            DateTime oldDate = new DateTime(2019, 03, 31);
+            if (Convert.ToDateTime(invoiceData.InvoiceDate) > oldDate)
+            {
+                oldBill = false;
+            }
+            string InvoiceNo = objDal.LastestInoiceNoGeneration(oldBill);
             HttpContext.Current.Session["InvoiceNo"] = InvoiceNo;
             for (int i = 0; i < invoiceData.Products.Count; i++)
             {
@@ -65,6 +70,9 @@ namespace Billing_System
                 objInvoiceData.PartyId = Convert.ToInt32(invoiceData.PartyId);
                 // Convert.ToDateTime(DateTime.ParseExact("YouDateString", "dd-MM-yyyy", CultureInfo.InvariantCulture));
                 objInvoiceData.DateOfSell = Convert.ToDateTime(invoiceData.InvoiceDate);
+               
+               
+                return "";
                 objInvoiceData.InvoiceNo = InvoiceNo;
                 //Adding the different Type of Product Name (ie.S.s Utensils , S.S.Patta,S.S.Scrap)
                 objInvoiceData.ProductName = BillType.Name;
@@ -77,6 +85,8 @@ namespace Billing_System
             }
             return responseData;
         }
+
+       
 
         [WebMethod]
         public static string GetPartyDetail()

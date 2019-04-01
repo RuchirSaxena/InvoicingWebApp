@@ -32,6 +32,19 @@ namespace Billing_System
            
         }
 
+        [WebMethod]
+        public static bool DeleteInvoice(string InvoiceNo)
+        {
+            DAL objDAL = new DAL();
+            bool result = false;
+            int invoiceNo = Convert.ToInt32(InvoiceNo);
+
+            result= objDAL.deleteInvoice(Convert.ToInt32(InvoiceNo));
+            
+            return result;
+
+        }
+
         public static string DataTableToJson(DataTable table)
         {
             string JSONString = string.Empty;

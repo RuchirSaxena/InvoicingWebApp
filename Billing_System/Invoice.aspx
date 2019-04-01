@@ -101,7 +101,7 @@
                     <div class="col-md-4">
                         <div class="radio">
                             <label for="radios-0">
-                                <input type="radio" name="type" ng-model="ProductType" id="radios-0" value="Weight" checked="checked" />
+                                <input type="radio" name="type" ng-model="ProductType" id="radios-0" value="Weight" ng-checked="true" />
                                 Weight
                             </label>
                         </div>

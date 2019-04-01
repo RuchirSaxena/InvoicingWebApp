@@ -78,7 +78,7 @@ namespace Billing_System
             mainhtml = mainhtml.Replace("@Date", objInvDetail.DateOfSell);
             mainhtml = mainhtml.Replace("@Tinno", objPartyDetail.PartyTinNo);
             mainhtml = mainhtml.Replace("@Logo", "<img src='" + Server.MapPath(@"~/Logo.PNG") + "' width='150' height='100' />");
-            mainhtml = mainhtml.Replace("@Om", "<img src='" + Server.MapPath(@"~/Content/Om.png") + "' width='20'/>");
+            mainhtml = mainhtml.Replace("@Om", "<img src='" + Server.MapPath(@"~/Content/Narayan.PNG") + "' width='180' height='35'/>");
             StringBuilder sbProducts = new StringBuilder();
             for (int i = 0; i < objInvDetail.Product.Count; i++)
             {

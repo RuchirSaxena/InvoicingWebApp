@@ -111,7 +111,7 @@ namespace Billing_System.Models
             return ds;
         }
 
-      
+
 
         public DataSet getActiveVistingVisitor()
         {
@@ -285,7 +285,7 @@ namespace Billing_System.Models
                 //Disconnect();
 
             }
-            return ds.Tables[0]; 
+            return ds.Tables[0];
         }
 
         //GetPartyDetailsDetails
@@ -347,18 +347,19 @@ namespace Billing_System.Models
             return ds.Tables[0];
         }
 
-       
 
-        public string LastestInoiceNoGeneration()
+
+        public string LastestInoiceNoGeneration(bool oldInvoice)
         {
             string LatestInoiceNo = string.Empty;
-            string LastInvoiceNo =getLastInvoice();
-            int TempInvoice = Convert.ToInt32(LastInvoiceNo)+1;
-            if(TempInvoice >= 0 && TempInvoice < 10)
+            string LastInvoiceNo = string.Empty;
+            LastInvoiceNo = getLastInvoice(oldInvoice);
+            int TempInvoice = Convert.ToInt32(LastInvoiceNo) + 1;
+            if (TempInvoice >= 0 && TempInvoice < 10)
             {
                 LatestInoiceNo = "00" + TempInvoice.ToString();
             }
-            else if(TempInvoice >= 10 && TempInvoice <= 99)
+            else if (TempInvoice >= 10 && TempInvoice <= 99)
             {
                 LatestInoiceNo = "0" + TempInvoice.ToString();
             }
@@ -369,8 +370,9 @@ namespace Billing_System.Models
 
             return LatestInoiceNo;
         }
-        public string getLastInvoice()
+        public string getLastInvoice(bool oldInvoice)
         {
+            string InvoiceNo = string.Empty;
             con = new SqlConnection(connString);
             SqlCommand cmd = new SqlCommand();
             SqlDataAdapter da = new SqlDataAdapter();
@@ -378,7 +380,7 @@ namespace Billing_System.Models
             try
             {
                 cmd = new SqlCommand("procGetLastInvoice", con);
-              
+
                 cmd.CommandType = CommandType.StoredProcedure;
                 da.SelectCommand = cmd;
                 da.Fill(ds);
@@ -396,13 +398,20 @@ namespace Billing_System.Models
             }
             if (ds.Tables[0].Rows.Count > 0)
             {
-                return ds.Tables[0].Rows[0]["IvoiceNo"].ToString();
+                InvoiceNo= ds.Tables[0].Rows[0]["IvoiceNo"].ToString();
             }
             else
             {
-                return "000";
+                InvoiceNo= "000";
             }
-            
+
+            //if(oldInvoice == false && Convert.ToInt32(InvoiceNo) > 250)
+            //{
+            //    InvoiceNo = "000";
+            //}
+
+            return InvoiceNo;
+
         }
 
         public int SavePartyDetails(Party obj)
@@ -410,7 +419,7 @@ namespace Billing_System.Models
             int response = 0;
             con = new SqlConnection(connString);
             SqlCommand cmd = new SqlCommand();
-           
+
             try
             {
                 cmd = new SqlCommand("SavePartyDetails", con);
@@ -420,9 +429,9 @@ namespace Billing_System.Models
                 cmd.Parameters.Add(new SqlParameter("@PartyAddress", obj.PartyAddress));
                 cmd.CommandType = CommandType.StoredProcedure;
                 Connect();
-                response= cmd.ExecuteNonQuery();
+                response = cmd.ExecuteNonQuery();
                 Disconnect();
-               
+
 
             }
             catch (Exception x)
@@ -517,6 +526,33 @@ namespace Billing_System.Models
             }
 
             return ds;
+        }
+
+        public bool deleteInvoice(int InvoiceNo)
+        {
+            con = new SqlConnection(connString);
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            int result = 0;
+            try
+            {
+                Connect();
+                cmd = new SqlCommand("delete from Invoice where IvoiceNo=" + InvoiceNo, con);
+                result= cmd.ExecuteNonQuery();
+                Disconnect();
+            }
+            catch (Exception x)
+            {
+
+            }
+            finally
+            {
+                cmd.Dispose();
+                Disconnect();
+
+            }
+            return Convert.ToBoolean(result);
         }
 
     }

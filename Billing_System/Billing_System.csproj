@@ -77,6 +77,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\Narayan.PNG" />
     <Content Include="Content\Om.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -120,9 +121,10 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="DoToList.txt" />
+    <Content Include="Invoice.html" />
     <Content Include="Models\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Invoice.aspx" />
-    <Content Include="Invoice.html" />
+    <Content Include="Invoice_Old.html" />
     <Content Include="Logo.PNG" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
