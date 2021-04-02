@@ -27,11 +27,20 @@ namespace Billing_System
             return jsonResponse;
         }
         [WebMethod]
+        public static string DeletePartyDetails(int partyId)
+        {
+            DAL objDal = new DAL();
+            string jsonResponse = objDal.DeleteParty(partyId).ToString();
+            return jsonResponse;
+
+        }
+        [WebMethod]
         public static string SaveInvoiceData(InvoiceData invoiceData)
         {
             bool oldBill = true;
             DateTime dt = DateTime.Now;
             int _billType = Convert.ToInt32(invoiceData.Products[0].BillType);
+            bool _isPiece = invoiceData.Products[0].Type == "Pieces" ? true: false;
             if (_billType == 0)
             {
                 BillType.Type = 1;
@@ -49,7 +58,7 @@ namespace Billing_System
             else
             {
                 BillType.Type = 3;
-                BillType.Name = "S.S.PATTA";
+                BillType.Name = "S.S.PATTA/ COIL";
                 BillType.HSNCode = "7220";
                 BillType.TaxRate = 9.00;
             }
@@ -72,15 +81,15 @@ namespace Billing_System
                 objInvoiceData.DateOfSell = Convert.ToDateTime(invoiceData.InvoiceDate);
                
                
-                return "";
+                //return "";
                 objInvoiceData.InvoiceNo = InvoiceNo;
-                //Adding the different Type of Product Name (ie.S.s Utensils , S.S.Patta,S.S.Scrap)
+                //Adding the different Type of Product Name (ie.S.s Utensils/coil , S.S.Patta,S.S.Scrap)
                 objInvoiceData.ProductName = BillType.Name;
                 objInvoiceData.PackagingCost = 0.0;
                 objInvoiceData.Qty = Convert.ToDouble(invoiceData.Products[i].Quantity);
                 objInvoiceData.Rate = Convert.ToDouble(invoiceData.Products[i].Amount);
                 objInvoiceData.Amount = objInvoiceData.Qty * objInvoiceData.Rate;
-                objInvoiceData.IsPiece = invoiceData.Products[i].Type == "Weight" ? false : true;
+                objInvoiceData.IsPiece = _isPiece; //invoiceData.Products[i].Type == "Weight" ? false : true;
                 responseData = objDal.SaveInvoicwDetails(objInvoiceData).ToString();
             }
             return responseData;

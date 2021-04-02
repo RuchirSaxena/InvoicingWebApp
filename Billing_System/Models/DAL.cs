@@ -414,6 +414,34 @@ namespace Billing_System.Models
 
         }
 
+        public string DeleteParty(int PartyId)
+        {
+            
+            con = new SqlConnection(connString);
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataSet ds = new DataSet();
+            int result = 0;
+            try
+            {
+                Connect();
+                cmd = new SqlCommand("delete from PurchaseParty where PartyId=" + PartyId, con);
+                result = cmd.ExecuteNonQuery();
+                Disconnect();
+            }
+            catch (Exception x)
+            {
+                return "Cannot Delete. Its associated with the bill";
+            }
+            finally
+            {
+                cmd.Dispose();
+                Disconnect();
+
+            }
+            return "sucessfully deleted";
+
+        }
         public int SavePartyDetails(Party obj)
         {
             int response = 0;

@@ -42,12 +42,12 @@
                         <div class="col-md-4">
                             <label>Start Date:</label>
 
-                            <input id="startDate" name="startDate" type="text" class="form-control" />
+                            <input id="startDate" autocomplete="off" name="startDate" type="text" class="form-control" />
                         </div>
                         <div class="col-md-4">
                             <label>End Date:</label>
 
-                            <input id="endDate" name="EndDate" type="text" class="form-control" />
+                            <input id="endDate" autocomplete="off" name="EndDate" type="text" class="form-control" />
 
                         </div>
                         <div class="col-md-4">

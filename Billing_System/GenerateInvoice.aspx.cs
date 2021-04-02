@@ -87,7 +87,7 @@ namespace Billing_System
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].ProductName + "</td>");
                 //Add the HSN Code Dynamically here
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>"+BillType.HSNCode+"</td>");
-                string Type = objInvDetail.Product[i].ProductType == "per kg" ? "Pieces" : "Kgs";
+                string Type = objInvDetail.Product[i].ProductType == "/ pp" ? "Pcs" : "Kgs";
                 sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + objInvDetail.Product[i].Qty + " " + Type + "</td>");
 
                 //sbProducts.Append("<td class='borderleft PartyInfo' style='height:40px;' align='center'>" + Type + "</td>");
@@ -139,7 +139,7 @@ namespace Billing_System
                         Amount = Convert.ToDouble(dtInvoiceData.Rows[i]["Amount"]),
                         AmountDisplay = Math.Round(Convert.ToDouble(dtInvoiceData.Rows[i]["Amount"]), 0, MidpointRounding.AwayFromZero).ToString("n2"),
                         IsPice = Convert.ToBoolean(dtInvoiceData.Rows[i]["IsPiece"]),
-                        ProductType = Convert.ToBoolean(dtInvoiceData.Rows[i]["IsPiece"]) == true ? "/per piece" : "/per kg"
+                        ProductType = Convert.ToBoolean(dtInvoiceData.Rows[i]["IsPiece"]) == true ? "/ pp" : "/per kg"
                     });
                 }
                 objInvoiceDetail.Product = liProduct;

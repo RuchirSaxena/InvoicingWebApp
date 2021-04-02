@@ -53,7 +53,7 @@
                 <!-- Form Name -->
                 <legend>Invoice Details</legend>
 
-                <!-- Select Basic -->
+                <!-- Select Party -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="Party">Select Party</label>
                     <div class="col-md-4">
@@ -72,13 +72,13 @@
                             <select class="form-control" ng-model="BillType">
                                 <option value="0">S.S.Utensils(12% | 7323)</option>
                                 <option value="1">S.S.Scrap(18% | 7204)</option>
-                                <option value="2">S.S.Patta(18% | 7220)</option>
+                                <option value="2">S.S.Patta/Coil(18% | 7220)</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Button -->
+                <!-- ADD PARTY Button -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="singlebutton">Add Party</label>
                     <div class="col-md-4">
@@ -86,11 +86,19 @@
                     </div>
                 </div>
 
+                <!-- DELETE PARTY Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="singlebutton">Delete Party</label>
+                    <div class="col-md-4">
+                        <a id="deleteParty" name="deleteParty" class="btn btn-warning">Delete Party</a>
+                    </div>
+                </div>
+
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Date</label>
                     <div class="col-md-4">
-                        <input id="DateOfBill" name="DateOfBill" type="text" ng-model="DateOfInvoice" class="form-control input-md" />
+                        <input id="DateOfBill" name="DateOfBill" autocomplete="off" type="text" ng-model="DateOfInvoice" class="form-control input-md" />
 
                     </div>
                 </div>
@@ -118,7 +126,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Weight/Pieces</label>
                     <div class="col-md-4">
-                        <input id="Weight" name="textinput" type="text" onkeypress="return isNumberKey(event)" ng-model="Qty" placeholder="Enter Weight/Pieces" class="form-control input-md" />
+                        <input id="Weight" name="textinput" autocomplete="off" type="text" onkeypress="return isNumberKey(event)" ng-model="Qty" placeholder="Enter Weight/Pieces" class="form-control input-md" />
 
                     </div>
                 </div>
@@ -163,7 +171,7 @@
             <footer>@Copywrite R.kay Steels</footer>
         </div>
     </div>
-    <!--Modal Popup-->
+    <!--ADD PARTY Modal Popup-->
     <div id="myModal" class="modal fade" ng-controller="partyCtrl as party">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -225,6 +233,47 @@
         </div>
     </div>
 
+    <div id="myModalDelete" class="modal fade" ng-controller="invoiceCtrl as invoice"">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Add Party </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            
+                            <!-- Select Party Name -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Party">Select Party</label>
+                                <div class="col-md-4">
+                                    <!--   <select ng-model="d" ng-change="getEmployees(d)"
+                         ng-options="dept.DepartmentId as dept.DepartmentName for dept in deptData"></select><br />-->
+                                    <select id="partyName" name="Party" ng-model="PartyId" class="form-control"
+                                        ng-options="party.PartyName for party in invoice.partyData track by party.PartyId">
+                                    </select>
+                                </div>
+                                {{PartyId.PartyNickName}}
+                            </div>
+
+                            <!-- SAVE Details -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="SaveParty"></label>
+                                <div class="col-md-4">
+                                    <button id="deletePartyData" name="SaveParty" ng-click="" class="btn btn-warning">Delete </button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+
+                    <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
     <!--External Resources-->
@@ -237,26 +286,53 @@
     <script src="ProjectResources/Controllers/partyCtrl.js"></script>
     <script src="ProjectResources/Factory/partyFactory.js"></script>
     <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" />
-     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
     <script type="text/javascript">
         $(document).ready(function () {
-		   $("#DateOfBill").datepicker();
-         //   $("#DateOfBill").datepicker({
-           //     dateFormat: 'd-m-yy'
-           // });
+            $("#DateOfBill").datepicker();
+            //   $("#DateOfBill").datepicker({
+            //     dateFormat: 'd-m-yy'
+            // });
             $('#AddParty').on('click', function () {
 
                 $("#myModal").modal('show');
             });
+            $('#deleteParty').on('click', function () {
+
+                $("#myModalDelete").modal('show');
+            });
+            $('#deletePartyData').on('click', function () {
+                let partyid = $('#partyName').val();
+                let partyName = $('#partyName option:selected').text();
+                var isDelete = confirm(`Are you sure you want to delete ${partyName} ?`);
+                if (isDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Invoice.aspx/DeletePartyDetails",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify({ 'partyId': partyid }),
+                        success: function (data) {
+                            alert(data.d);
+                            location.reload()
+                        }
+                    });
+                }
+
+
+                
+            });
+           
+
         });
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
             if (charCode != 46 && charCode > 31
-              && (charCode < 48 || charCode > 57))
+                && (charCode < 48 || charCode > 57))
                 return false;
 
             return true;
