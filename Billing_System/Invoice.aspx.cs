@@ -37,7 +37,6 @@ namespace Billing_System
         [WebMethod]
         public static string SaveInvoiceData(InvoiceData invoiceData)
         {
-            bool oldBill = true;
             DateTime dt = DateTime.Now;
             int _billType = Convert.ToInt32(invoiceData.Products[0].BillType);
             bool _isPiece = invoiceData.Products[0].Type == "Pieces" ? true: false;
@@ -67,11 +66,7 @@ namespace Billing_System
             FinalInvoiceData objInvoiceData = new FinalInvoiceData();
             DAL objDal = new DAL();
             DateTime oldDate = new DateTime(2019, 03, 31);
-            if (Convert.ToDateTime(invoiceData.InvoiceDate) > oldDate)
-            {
-                oldBill = false;
-            }
-            string InvoiceNo = objDal.LastestInoiceNoGeneration(oldBill);
+            string InvoiceNo = objDal.LastestInoiceNoGeneration();
             HttpContext.Current.Session["InvoiceNo"] = InvoiceNo;
             for (int i = 0; i < invoiceData.Products.Count; i++)
             {

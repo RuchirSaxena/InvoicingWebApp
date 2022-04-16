@@ -349,11 +349,11 @@ namespace Billing_System.Models
 
 
 
-        public string LastestInoiceNoGeneration(bool oldInvoice)
+        public string LastestInoiceNoGeneration()
         {
             string LatestInoiceNo = string.Empty;
             string LastInvoiceNo = string.Empty;
-            LastInvoiceNo = getLastInvoice(oldInvoice);
+            LastInvoiceNo = getLastInvoice();
             int TempInvoice = Convert.ToInt32(LastInvoiceNo) + 1;
             if (TempInvoice >= 0 && TempInvoice < 10)
             {
@@ -370,7 +370,7 @@ namespace Billing_System.Models
 
             return LatestInoiceNo;
         }
-        public string getLastInvoice(bool oldInvoice)
+        public string getLastInvoice()
         {
             string InvoiceNo = string.Empty;
             con = new SqlConnection(connString);
@@ -404,14 +404,7 @@ namespace Billing_System.Models
             {
                 InvoiceNo= "000";
             }
-
-            //if(oldInvoice == false && Convert.ToInt32(InvoiceNo) > 250)
-            //{
-            //    InvoiceNo = "000";
-            //}
-
             return InvoiceNo;
-
         }
 
         public string DeleteParty(int PartyId)
