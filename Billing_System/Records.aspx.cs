@@ -24,9 +24,10 @@ namespace Billing_System
         {
             DAL objDAL = new DAL();
             DataSet ds = new DataSet();
-            DateTime startDate = Convert.ToDateTime(StartDate);
-            DateTime endDate = Convert.ToDateTime(EndDate);
-            ds= objDAL.GetMonthlySalesData(startDate, endDate);
+            //DateTime.ParseExact(invoiceData.InvoiceDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            DateTime startDate = DateTime.ParseExact(StartDate, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            DateTime endDate = DateTime.ParseExact(EndDate, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            ds = objDAL.GetMonthlySalesData(startDate, endDate);
             string jsonString = DataTableToJson(ds.Tables[0]);
             return jsonString;
            
@@ -37,9 +38,8 @@ namespace Billing_System
         {
             DAL objDAL = new DAL();
             bool result = false;
-            int invoiceNo = Convert.ToInt32(InvoiceNo);
 
-            result= objDAL.deleteInvoice(Convert.ToInt32(InvoiceNo));
+            result= objDAL.deleteInvoice(InvoiceNo);
             
             return result;
 

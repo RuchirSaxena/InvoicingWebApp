@@ -369,7 +369,7 @@ namespace Billing_System.Models
             else
             {
                 // from backed we receve GST 21-22/Bill no.
-                LastInvoiceNo = LatestInoiceNo.Split('/')[1];
+                LastInvoiceNo = LatestInoiceNo.Contains("/") ? LatestInoiceNo.Split('/')[1] : LatestInoiceNo;
             }
 
 
@@ -581,7 +581,7 @@ namespace Billing_System.Models
             return ds;
         }
 
-        public bool deleteInvoice(int InvoiceNo)
+        public bool deleteInvoice(string InvoiceNo)
         {
             con = new SqlConnection(connString);
             SqlCommand cmd = new SqlCommand();
@@ -591,7 +591,7 @@ namespace Billing_System.Models
             try
             {
                 Connect();
-                cmd = new SqlCommand("delete from Invoice where IvoiceNo=" + InvoiceNo, con);
+                cmd = new SqlCommand("delete from Invoice where IvoiceNo=" +"'"+ InvoiceNo + "'", con);
                 result= cmd.ExecuteNonQuery();
                 Disconnect();
             }

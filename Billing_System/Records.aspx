@@ -114,8 +114,8 @@
     <script src="Scripts/jquery-ui-1.12.1.js"></script>
     <script>
         $(document).ready(function () {
-            $("#startDate").datepicker();
-            $("#endDate").datepicker();
+            $("#startDate").datepicker({ dateFormat: 'dd-mm-yy' });
+            $("#endDate").datepicker({ dateFormat: 'dd-mm-yy' });
             //Export To Excel
             $("#btnExport").click(function (e) {
             
