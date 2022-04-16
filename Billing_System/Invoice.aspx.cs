@@ -58,8 +58,8 @@ namespace Billing_System
             else
             {
                 BillType.Type = 3;
-                BillType.Name = "S.S.PATTA/ COIL";
-                BillType.HSNCode = "7220";
+                BillType.Name = "S.S. Sheet/Patti/Circles";
+                BillType.HSNCode = "7219";
                 BillType.TaxRate = 9.00;
             }
 
