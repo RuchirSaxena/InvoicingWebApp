@@ -293,7 +293,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#DateOfBill").datepicker();
+            $("#DateOfBill").datepicker({ dateFormat: 'dd-mm-yy'});
             //   $("#DateOfBill").datepicker({
             //     dateFormat: 'd-m-yy'
             // });

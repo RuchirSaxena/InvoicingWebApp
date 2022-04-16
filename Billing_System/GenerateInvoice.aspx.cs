@@ -19,7 +19,6 @@ namespace Billing_System
         {
             if (Session["InvoiceNo"] != null)
             {
-                // GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));//009
                 GetInvoiceDetails(Convert.ToString(Session["InvoiceNo"]));
             }
         }

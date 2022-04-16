@@ -347,13 +347,34 @@ namespace Billing_System.Models
             return ds.Tables[0];
         }
 
-
-
         public string LastestInoiceNoGeneration()
         {
+            DataSet dsLatestInvoiceData = new DataSet();
             string LatestInoiceNo = string.Empty;
+            DateTime ?DateOfLatestInvoiceNo = null;
             string LastInvoiceNo = string.Empty;
-            LastInvoiceNo = getLastInvoice();
+            dsLatestInvoiceData = getLastInvoice();
+            if(dsLatestInvoiceData.Tables[0].Rows.Count > 0)
+            {
+                LatestInoiceNo = dsLatestInvoiceData.Tables[0].Rows[0]["IvoiceNo"].ToString();
+                DateOfLatestInvoiceNo = Convert.ToDateTime(dsLatestInvoiceData.Tables[0].Rows[0]["DateOfSell"]);
+            }
+            // Logic to get the current financial year and set 001 Bill No when financial year changes
+            string LastBillFinancialYear = GetFinancialYear(Convert.ToDateTime(DateOfLatestInvoiceNo));
+            string CurrentFinancilaYear = GetFinancialYear(DateTime.Now);
+            if(Convert.ToInt32(LastBillFinancialYear.Split('-')[1]) < Convert.ToInt32(CurrentFinancilaYear.Split('-')[1]))
+            {
+                LastInvoiceNo = "0"; 
+            }
+            else
+            {
+                // from backed we receve GST 21-22/Bill no.
+                LastInvoiceNo = LatestInoiceNo.Split('/')[1];
+            }
+
+
+            //throw new Exception("something"); // For testing generation of Invioce No , so that data is not stored in DB as we halt the process 
+
             int TempInvoice = Convert.ToInt32(LastInvoiceNo) + 1;
             if (TempInvoice >= 0 && TempInvoice < 10)
             {
@@ -368,9 +389,28 @@ namespace Billing_System.Models
                 LatestInoiceNo = TempInvoice.ToString();
             }
 
-            return LatestInoiceNo;
+            return "GST " + CurrentFinancilaYear +"/"+ LatestInoiceNo;
         }
-        public string getLastInvoice()
+        public string GetFinancialYear(DateTime curDate)
+        {
+            int CurrentYear = curDate.Year;
+            int PreviousYear = (curDate.Year - 1);
+            int NextYear = (curDate.Year + 1);
+            string PreYear = PreviousYear.ToString();
+            string NexYear = NextYear.ToString();
+            string CurYear = CurrentYear.ToString();
+            string FinYear = string.Empty;
+            if (curDate.Month > 3)
+            {
+                FinYear = CurYear.Substring(2) + "-" + NexYear.Substring(2);
+            }
+            else
+            {
+                FinYear = PreYear.Substring(2) + "-" + CurYear.Substring(2);
+            }
+            return FinYear;
+        }
+        public DataSet getLastInvoice()
         {
             string InvoiceNo = string.Empty;
             con = new SqlConnection(connString);
@@ -396,15 +436,7 @@ namespace Billing_System.Models
                 //Disconnect();
 
             }
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                InvoiceNo= ds.Tables[0].Rows[0]["IvoiceNo"].ToString();
-            }
-            else
-            {
-                InvoiceNo= "000";
-            }
-            return InvoiceNo;
+            return ds;
         }
 
         public string DeleteParty(int PartyId)

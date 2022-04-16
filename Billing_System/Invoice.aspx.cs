@@ -65,7 +65,6 @@ namespace Billing_System
             string responseData = "0";
             FinalInvoiceData objInvoiceData = new FinalInvoiceData();
             DAL objDal = new DAL();
-            DateTime oldDate = new DateTime(2019, 03, 31);
             string InvoiceNo = objDal.LastestInoiceNoGeneration();
             HttpContext.Current.Session["InvoiceNo"] = InvoiceNo;
             for (int i = 0; i < invoiceData.Products.Count; i++)
@@ -73,9 +72,10 @@ namespace Billing_System
                 HttpContext.Current.Session["BillType"] = invoiceData.Products[i].BillType;
                 objInvoiceData.PartyId = Convert.ToInt32(invoiceData.PartyId);
                 // Convert.ToDateTime(DateTime.ParseExact("YouDateString", "dd-MM-yyyy", CultureInfo.InvariantCulture));
-                objInvoiceData.DateOfSell = Convert.ToDateTime(invoiceData.InvoiceDate);
-               
-               
+                //DateTime.ParseExact(hdndate.Value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                objInvoiceData.DateOfSell = DateTime.ParseExact(invoiceData.InvoiceDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+
                 //return "";
                 objInvoiceData.InvoiceNo = InvoiceNo;
                 //Adding the different Type of Product Name (ie.S.s Utensils/coil , S.S.Patta,S.S.Scrap)
