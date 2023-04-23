@@ -402,11 +402,11 @@ namespace Billing_System.Models
             string FinYear = string.Empty;
             if (curDate.Month > 3)
             {
-                FinYear = CurYear.Substring(2) + "-" + NexYear.Substring(2);
+                FinYear = CurYear + "-" + NexYear;
             }
             else
             {
-                FinYear = PreYear.Substring(2) + "-" + CurYear.Substring(2);
+                FinYear = PreYear + "-" + CurYear;
             }
             return FinYear;
         }
